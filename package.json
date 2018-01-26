@@ -1,0 +1,28 @@
+{
+  "name": "groundhog-life",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf dist",
+    "build-vendor": "npm run clean && debundle -i vendor.js -o dist -c debundel.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tcztzy/groundhog-life.git"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/tcztzy/groundhog-life/issues"
+  },
+  "homepage": "https://github.com/tcztzy/groundhog-life#readme",
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "cross-env": "^5.1.3",
+    "debundle": "^0.5.4",
+    "rimraf": "^2.6.2"
+  },
+  "eslintConfig": "./.eslintrc"
+}
