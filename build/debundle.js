@@ -36,9 +36,7 @@ fs.readFile(path.resolve(baseDir, "vendor.48ad013b1513299182f0.js"), "utf8", (er
 });
 
 function debundle() {
-    exec(`rm -rf ${debundleDir} && debundle -i ${bundleJS} -o ${debundleDir} -c ${debundleConf}`, (err, stdout, stderr) => {
+    exec(`rm -rf ${debundleDir} && debundle -i ${bundleJS} -o ${debundleDir} -c ${debundleConf} > /dev/null 2>&1`, (err, stdout, stderr) => {
         if (err) throw err;
-        // console.log(stdout);
-        console.error(stderr);
     });
 }
