@@ -20,6 +20,7 @@ import TimeWarning from './components/TimeWarning.vue';
 import PrestigeInfo from './components/PrestigeInfo.vue';
 import MessageBox from './components/MessageBox.vue';
 import AusterityAlert from './components/AusterityAlert.vue';
+import SidebarDisplay from './components/SidebarDisplay.vue';
 
 export default {
     name: "app",
@@ -27,7 +28,7 @@ export default {
         TimeWarning,
         PrestigeInfo,
         // ProgressModal,
-        // SidebarDisplay,
+        SidebarDisplay,
         // NavbarDisplay,
         // MainPane,
         // FooterDisplay,

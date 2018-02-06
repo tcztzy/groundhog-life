@@ -1,6 +1,6 @@
-var m = require('./72');
-import { assert } from './assertions';
 import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
+import { assert } from './assertions';
+import { prestiger } from './prestiger';
 
 function getName(module) {
     return `"${module.name}-${module.constructor.name}"`;
@@ -42,10 +42,10 @@ class Saver {
         this.running = false;
     }
 
-    register() {
+    register(module) {
         assert(!this.registeredObjects.hasOwnProperty(module.id) || this.registeredObjects[module.id] === module, module.id);
         this.registeredObjects[module.id] = module;
-        m.prestiger.register(module);
+        prestiger.register(module);
     }
 
     import(string) {

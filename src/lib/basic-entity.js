@@ -1,4 +1,6 @@
 import { Locks } from './locks';
+import { saver } from './saver';
+import { messageBox } from './message-box';
 
 export class BasicEntity {
     locks = new Locks();
@@ -10,7 +12,9 @@ export class BasicEntity {
     wasLocked = false;
 
     constructor(id, name, state) {
-        Object.assign(this, { id, name, state });
+        this.id = id;
+        this.name = name;
+        this.state = state;
         saver.register(this);
     }
 

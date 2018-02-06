@@ -9,8 +9,8 @@ export function assert(value, errorMessage) {
     }
 }
 
-export function isNear(a, b, threshold=0.0001) {
-    return Math.abs(a - b) < threshold;
+export function isNear(a, b, tolerance=0.0001) {
+    return Math.abs(a - b) < tolerance;
 }
 
 export function isNumber(value) {
