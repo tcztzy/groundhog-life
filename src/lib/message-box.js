@@ -27,4 +27,4 @@ class MessageBox {
         return this.messages.length > 0 ? this.messages[this.messages.length - 1] : '';
     }
 }
-exports.messageBox = new MessageBox();
+export let messageBox = new MessageBox();
