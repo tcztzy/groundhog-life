@@ -1,8 +1,8 @@
 import { Career } from './career';
 import { configurePayProgression, Job } from "./job";
 import { createLevelLockChain } from "../locks";
+import {configureXpProgression} from '../xp';
 
-var s = require('./53');
 export let unpaidIntern = new Job('yugle1', 'Unpaid Intern');
 export let juniorDeveloper = new Job('yugle2', 'Junior Developer');
 export let softwareEngineer = new Job('yugle3', 'Software Engineer');
@@ -25,7 +25,7 @@ let jobs = [
     cto,
     yugleCeo
 ];
-(0, s.configureXpProgression)(jobs, 1100, 2, 8);
+configureXpProgression(jobs, 1100, 2, 8);
 configurePayProgression(jobs, 10, 250, 2);
 unpaidIntern.setBasePay(0);
 createLevelLockChain(jobs, 10);

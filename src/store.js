@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 var r = require('get-iterator'), i = n(r),
     c = require('./118'), d = require('./30'), f = require('./89'), v = require('./177'), h = require('./69'),
-    p = require('./46'), m = require('./lib/currency-stat'), y = require('./31'), g = require('./115'),
+    p = require('./46'), m = require('./lib/stats/currency-stat'), y = require('./31'), g = require('./115'),
     _ = require('./59'), b = require('./73'), M = require('./90'), k = require('./57'), w = require('./129'),
     P = require('./22'), x = require('./18'), C = require('./35'), L = require('./84'), S = require('./41'),
     A = require('./lib/locks'), I = require('./169'), T = require('./lib/saver'), E = require('./86'),

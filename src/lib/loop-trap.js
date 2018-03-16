@@ -1,13 +1,12 @@
-let v = require('./16');
-
 import { BasicEntity } from './basic-entity';
+import {Stat} from "./stats/stat";
 
 class StateClass {}
 
 class LoopTrap extends BasicEntity {
     constructor() {
         super('looptrap', 'Loop Trap', new StateClass());
-        this.efficiency = new v.Stat('lt_efficiency', 'Efficiency', 0, 4);
+        this.efficiency = new Stat('lt_efficiency', 'Efficiency', 0, 4);
     }
 }
 

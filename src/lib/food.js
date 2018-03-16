@@ -1,13 +1,13 @@
-var C = require('./42');
 import { currentJobContainer } from "./career-containers";
 import { eat, freeTime } from "./activities";
 import { formatMinutes } from "./utils";
 import { messageBox } from "./message-box";
-import { dailyNetIncomeStat } from "./currency-stat";
+import { dailyNetIncomeStat } from "./stats/currency-stat";
 import { createSelectedLock } from "./locks";
-import { Stat } from "./stat";
+import { Stat } from "./stats/stat";
 import { BasicEntity } from "./basic-entity";
-import { AddModifier } from "./modifiers";
+import { AddModifier } from "./modifiers/modifier";
+import {yugle} from './careers/yugle';
 
 export let foodCostsPerDayStat = new Stat('foodCostsPerDayStat', 'Food costs/day', 0);
 export let foodQualityStat = new Stat('foodquality', 'Food Quality', 0, 2);
@@ -54,7 +54,7 @@ class FoodOption extends BasicEntity {
 
     dayCounter() {
         if (this.state.selected) {
-            if ('yuglecampus' === this.id && currentJobContainer.job.career !== C.yugle)
+            if ('yuglecampus' === this.id && currentJobContainer.job.career !== yugle)
                 selectFoodOption(fastFood);
             else
                 this.state.daysActive += 1;
@@ -90,7 +90,7 @@ export let foodOptions = [
     molecularCooking
 ];
 export let selectFoodOption = function (foodOption) {
-    if (foodOption === yugleCampus && currentJobContainer.job.career !== C.yugle)
+    if (foodOption === yugleCampus && currentJobContainer.job.career !== yugle)
         return void messageBox.addMessage('Need to work at Yugle to eat on Yugle Campus!');
     let timeDelta = foodOption.time - selectedFoodOption.time;
     let hasEnoughTime = freeTime.duration.effective >= timeDelta;

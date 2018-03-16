@@ -1,5 +1,5 @@
 import { BasicEntity } from "./basic-entity";
-import { Stat } from "./stat";
+import { Stat } from "./stats/stat";
 import { NumberStateEntity } from "./state-entities";
 import { assert } from "./assertions";
 import { currentJobContainer } from "./career-containers";

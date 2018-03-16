@@ -1,5 +1,5 @@
-import { BasicEntity } from './basic-entity';
-import { assert, isNumber } from './assertions';
+import { BasicEntity } from '../basic-entity';
+import { assert, isNumber } from '../assertions';
 
 class StatClass {
     highestEffectiveEver = -9999999999;

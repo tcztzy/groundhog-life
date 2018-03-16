@@ -1,9 +1,11 @@
 import { currentJobContainer } from "../career-containers";
 import { BasicEntity } from "../basic-entity";
 import { assert } from '../assertions';
+import {XPModule} from '../xp';
+import {jobPane} from "../panes";
 
 
-var y = require('./186'), b = require('./53'), M = require('./31'), k = require('./170'), P = require('./28');
+var y = require('./186'), M = require('./31'), k = require('./170');
 
 export function configurePayProgression(module, exports, require, n) {
     let r = (0, k.exponentialProgression)(module.length, n);
@@ -29,7 +31,7 @@ export class Job extends BasicEntity {
         super(module, require, i);
 
         let l = (0, M.createWorkXpPerHourStat)(this.id + '_xp_per_hour');
-        this.xp = new b.XPModule(this.id + 'experience', this.name + ' experience', l);
+        this.xp = new XPModule(this.id + 'experience', this.name + ' experience', l);
         this.income = new y.IncomePerWorkHourStat(this, n);
         this.logUnlock = true;
         this.update();
@@ -44,7 +46,7 @@ export class Job extends BasicEntity {
         this.state.active && currentJobContainer.update();
         super.update();
         let unlockedAfter = this.unlocked();
-        !unlockedBefore && unlockedAfter && P.jobPane.notify();
+        !unlockedBefore && unlockedAfter && jobPane.notify();
     }
 
     activate() {

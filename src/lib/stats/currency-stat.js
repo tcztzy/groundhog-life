@@ -1,5 +1,5 @@
 import { Stat } from './stat';
-import { dailyWorkIncomeStat } from './daily-work-income-stat';
+import { dailyWorkIncomeStat } from './stats/daily-work-income-stat';
 import { foodCostsPerDayStat } from "./food";
 import { StatEffectiveAddModifier, StatEffectiveMultModifier } from "./modifiers";
 
