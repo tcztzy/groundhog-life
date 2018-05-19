@@ -26,7 +26,7 @@ export default {
 };
 </script>
 <style scoped>
-.floating[data-v-718331c8] {
+.floating {
     position:fixed;
     top:60px;
     right:20px;
