@@ -5,8 +5,7 @@ import {sleep, research, work, chores} from './activities';
 import {currentJobContainer} from './career-containers';
 import {loopTrap} from "./loop-trap";
 
-var r = require('get-iterator'), i = n(r),
-    l = require('../12'), d = require('../183'), v = require('../56'),
+var l = require('../12'), d = require('../183'), v = require('../56'),
     h = require('../57'), p = require('../18'), m = require('../41'), y = require('../73'), g = require('../90'),
     _ = require('../59'), b = require('../46'), k = require('../118'), w = require('../128'),
     P = require('../28'), x = require('../89'), C = require('../44'),
@@ -30,7 +29,7 @@ function j() {
     createLevelLock(C.laserGun, P.lambdaPane, 1);
 }
 function N() {
-    var module = new w.PaneGroup(!0), exports = !0, require = !1, n = void 0;
+    var module = new w.PaneGroup(true);
     for (let career of k.careers) {
         let u = new w.Pane(career.id + '-pane', career.name, 'job-selector', module);
         u.state.selected = true;
@@ -39,38 +38,19 @@ function N() {
     }
 
     P.jobPane.subpanes = module.panes;
-    var l = new w.PaneGroup(!0), c = !0, d = !1, v = void 0;
-    try {
-        for (var h, p = (0, i.default)(x.fields); !(c = (h = p.next()).done); c = !0) {
-            var m = h.value, y = new w.Pane(m.id + '-pane', m.name, 'area-selector', l);
-            y.field = m, y.state.selected = !0, createUnlockedLock(m, y);
-        }
-    } catch (module) {
-        d = !0, v = module;
-    } finally {
-        try {
-            !c && p.return && p.return();
-        } finally {
-            if (d)
-                throw v;
-        }
+    var l = new w.PaneGroup(true);
+    for (let field of x.fields) {
+        let pane = new w.Pane(`${field.id}-pane`, field.name, 'area-selector', l);
+        pane.field = field;
+        pane.state.selected = true;
+        createUnlockedLock(field, pane);
     }
     P.researchPane.subpanes = l.panes;
-    var g = new w.PaneGroup(!0), _ = !0, b = !1, M = void 0;
-    try {
-        for (var C, L = (0, i.default)(A.achievements); !(_ = (C = L.next()).done); _ = !0) {
-            var S = C.value, I = new w.Pane(S.id + '-pane', S.name, 'ag-display', g);
-            I.ag = S, I.state.selected = !1;
-        }
-    } catch (module) {
-        b = !0, M = module;
-    } finally {
-        try {
-            !_ && L.return && L.return();
-        } finally {
-            if (b)
-                throw M;
-        }
+    var g = new w.PaneGroup(true);
+    for (let achievement of A.achievements) {
+        let pane = new w.Pane(`${achievement.id}-pane`, achievement.name, 'ag-display', g);
+        pane.ag = achievement;
+        pane.state.selected = false;
     }
     P.achievementPane.subpanes = g.panes;
 }

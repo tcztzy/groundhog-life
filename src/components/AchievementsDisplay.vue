@@ -60,7 +60,7 @@ export default {
         completedAchievements() {
             let completed = 0;
             let total = 0;
-            for (let achievement in this.achievements) {
+            for (let achievement of this.achievements) {
                 total += 1;
                 if (achievement.state.completed)
                     completed += 1;

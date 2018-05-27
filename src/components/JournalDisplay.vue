@@ -29,6 +29,7 @@ import { mapGetters } from 'vuex';
 import LogDisplay from './LogDisplay.vue';
 import AchievementsDisplay from './AchievementsDisplay.vue';
 import LifeSummary from './LifeSummary.vue';
+import NavbarDisplay from './NavbarDisplay.vue';
 
 export default {
     name: 'journal-display',

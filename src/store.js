@@ -21,7 +21,8 @@ var K = [];
 window.onkeyup = function (module) {
     var exports = module.keyCode;
     K[exports] = !1;
-}, window.onkeydown = function (module) {
+};
+window.onkeydown = function (module) {
     var exports = module.keyCode;
     if (!(exports >= 97 && exports <= 105)) {
         16 !== exports && (K[16] = !1), K[module.keyCode] = !0;
@@ -73,7 +74,8 @@ window.onkeyup = function (module) {
             }
         }
     }
-}, (0, A.createAnyLock)(f.areas, B.researchPane, function (module) {
+};
+(0, A.createAnyLock)(f.areas, B.researchPane, function (module) {
     return module.unlocked();
 });
 var ee = W.DEVMODE ? 30 : 300, te = 2, ae = 10, ne = 10, re = {
@@ -448,7 +450,7 @@ let de = function (module) {
         }
     }
     module.battle.update(), module.time.lastTime += module.timeConfig.tickLength, 10 === module.time.currentDay.getDayOfYear() && module.time.currentDay.getYear() % 10 === 0 && (0, Y.logPlayerProgression)(C.currentLoop.getValue(), C.currentLifeThisLoop.getValue(), x.currentDay.getYear());
-}
+};
 let fe = function (module, exports) {
     !module.loginStarted && window.kongregate && (module.loginStarted = !0, (0, Y.startLogin)());
     var require = new Date();
@@ -461,7 +463,7 @@ let fe = function (module, exports) {
     }
     for (; exports > 0;)
         q && (0, D.autoplay)(module), exports -= 1, module.time.sessionTicks += 1, de(module);
-}
+};
 let ve = function () {
     V.paused.toggleValue();
 };
@@ -598,12 +600,7 @@ let actions = {
         a('IMPORT_SAVE', exports);
     }
 };
-exports.default = new Vuex.Store({
-    state: state,
-    getters: getters,
-    mutations: mutations,
-    actions: actions
-});
+
 export default new Vuex.Store({
     state,
     getters,

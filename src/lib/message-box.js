@@ -1,5 +1,5 @@
-const bell = new window.Audio('bell.mp3');
-const unlocked = new window.Audio('unlocked.mp3');
+const bell = new window.Audio(require('bell.mp3'));
+const unlocked = new window.Audio(require('unlocked.mp3'));
 class MessageBox {
     messages = [];
     playSounds = null;
