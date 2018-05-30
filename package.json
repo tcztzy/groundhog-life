@@ -23,6 +23,7 @@
     "bootstrap": "^4.0.0",
     "bootstrap-vue": "^2.0.0-rc.1",
     "jquery": "^3.3.1",
+    "playfab-sdk": "1.4.170411",
     "popper.js": "^1.12.9",
     "vue": "^2.5.13",
     "vuex": "^3.0.1"
