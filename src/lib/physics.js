@@ -1,9 +1,9 @@
-var r = require('./124');
 import { createLevelLock } from "./locks";
 import { LevelAddMultModifier } from "./modifiers/modifier";
 import { Area } from "./area";
 import { lambdaComplexTrainee, darkPlateauCeo } from "./careers/dark-plateau";
 import { Field } from "./field";
+import { qm } from './quantum-mechanics';
 
 export let dmScanner = new Area('area_dmScanner', 'Dark Matter Scanning', []);
 export let anomaly = new Area('area_investigateAnomaly', 'Investigate Anomaly', []);
@@ -15,7 +15,7 @@ laserGun.effect = '+10% Laser Gun Damage';
 export let loopTrapResearch = new Area('area_loopTrap', 'Loop Trap Device', []);
 loopTrapResearch.effect = 'Increases Loop Trap Device efficiency';
 let m = [
-    r.qm,
+    qm,
     dmScanner,
     anomaly,
     mirrorMatter,

@@ -1,8 +1,8 @@
 import { currentJobContainer } from "../career-containers";
 import { BasicEntity } from "../basic-entity";
 import { assert } from '../assertions';
-import {XPModule} from '../xp';
-import {jobPane} from "../panes";
+import { XPModule } from '../xp';
+import { jobPane } from "../panes";
 import { createWorkXpPerHourStat } from '../stats/xp-per-hour-stat';
 import { IncomePerWorkHourStat } from '../stats/income-per-work-hour-stat';
 import { exponentialProgression } from '../exponential-progression';
