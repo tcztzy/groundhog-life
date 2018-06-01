@@ -1,15 +1,16 @@
-var n = require('./70'), r = require('./124'), i = require('./25'), o = require('./55');
+var n = require('./70'), r = require('./124'), o = require('./55');
 import { createLevelLock } from "./locks";
 import { LevelAddMultModifier } from "./modifiers/modifier";
+import { Area } from "./area";
 
-export let dmScanner = new i.Area('area_dmScanner', 'Dark Matter Scanning', []);
-export let anomaly = new i.Area('area_investigateAnomaly', 'Investigate Anomaly', []);
-export let mirrorMatter = new i.Area('area_mirrorMatter', 'Mirror Matter Theory', []);
-export let demirrorAnomaly = new i.Area('area_demirror', 'Unmirror Anomaly', []);
-export let studyMirroredShip = new i.Area('area_studyMirroredShip', 'Study Mirrored Ship', []);
-export let laserGun = new i.Area('area_constructPowerPlant', 'Laser Gun', []);
+export let dmScanner = new Area('area_dmScanner', 'Dark Matter Scanning', []);
+export let anomaly = new Area('area_investigateAnomaly', 'Investigate Anomaly', []);
+export let mirrorMatter = new Area('area_mirrorMatter', 'Mirror Matter Theory', []);
+export let demirrorAnomaly = new Area('area_demirror', 'Unmirror Anomaly', []);
+export let studyMirroredShip = new Area('area_studyMirroredShip', 'Study Mirrored Ship', []);
+export let laserGun = new Area('area_constructPowerPlant', 'Laser Gun', []);
 laserGun.effect = '+10% Laser Gun Damage';
-export let loopTrapResearch = new i.Area('area_loopTrap', 'Loop Trap Device', []);
+export let loopTrapResearch = new Area('area_loopTrap', 'Loop Trap Device', []);
 loopTrapResearch.effect = 'Increases Loop Trap Device efficiency';
 let m = [
     r.qm,

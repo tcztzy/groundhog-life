@@ -27,6 +27,7 @@
         "22": "./lib/activities",
         "23": "./node_modules/core-js/library/modules/_object-dp",
         "24": "./components/StatDisplay.vue/StatDisplay.vue",
+        "25": "./lib/area",
         "26": "./node_modules/core-js/library/modules/_descriptors",
         "27": "./node_modules/core-js/library/modules/_global",
         "28": "./lib/panes",
