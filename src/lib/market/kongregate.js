@@ -1,9 +1,9 @@
 import { standardCallback } from './playFabCallback';
 import PlayFab from 'playfab-sdk/Scripts/PlayFab/PlayFab';
 import PlayFabClient from 'playfab-sdk/Scripts/PlayFab/PlayFabClient';
-import { currentLife } from './life-loop';
-import { saver } from './saver';
-import { userInventory, tachyonCache, marketItems, kongItems } from './91';
+import { currentLife } from '../life-loop';
+import { saver } from '../saver';
+import { userInventory, tachyonCache, marketItems, kongItems } from './market';
 
 const InfoRequestParameters = {
     GetUserAccountInfo: true,
@@ -38,11 +38,11 @@ function p(error, result) {
         CreateAccount: true,
         InfoRequestParameters
     };
-    PlayFabClient.LoginWithKongregate(r, m);
+    PlayFabClient.LoginWithKongregate(r, loginWithKongregateCallback);
     standardCallback(error, result);
 }
 
-function m(e, t) {
+function loginWithKongregateCallback(e, t) {
     if (null !== t){
         consumeKongItems();
         if (!window.kongregate.services.isGuest())
@@ -62,7 +62,7 @@ function onLogin() {
     PlayFabClient.LinkKongregate(request, p);
 }
 
-function _(e) {
+function initializeUserInventory(e) {
     userInventory.initialize(e.UserVirtualCurrency.TA, e.UserInventory);
     if (tachyonCache.getValue() > 0) {
         addTachyons(tachyonCache.getValue());
@@ -73,13 +73,13 @@ function _(e) {
 
 function b(error, result) {
     let a = result.data.InfoResultPayload;
-    x();
+    getCatalogItems();
     requestItemList();
-    _(a);
+    initializeUserInventory(a);
     standardCallback(error, result);
 }
 
-function M(e, t) {
+function loginWithCustomIDCallback(e, t) {
     if (!t) {
         window.alert("Login failed. Can not gain Tachyons while disconnected. Please reload.");
         console.log(e);
@@ -101,13 +101,13 @@ export function startLogin() {
         InfoRequestParameters
     };
     try {
-        PlayFabClient.LoginWithCustomID(request, M);
+        PlayFabClient.LoginWithCustomID(request, loginWithCustomIDCallback);
     } catch (e) {
         console.log(e);
     }
 }
 
-export function addTachyons(e, callback=P) {
+export function addTachyons(e, callback=addTachyonsCallback) {
     try {
         let a = {VirtualCurrency: "TA", Amount: e};
         tachyonCache.add(e);
@@ -118,7 +118,7 @@ export function addTachyons(e, callback=P) {
     }
 }
 
-function P(error, result) {
+function addTachyonsCallback(error, result) {
     if (result !== null) {
         userInventory.tachyons = result.data.Balance;
         tachyonCache.add(-result.data.BalanceChange);
@@ -154,14 +154,14 @@ export function logPlayerProgression(e, t, a) {
         console.log(e.errorMessage);
     }
 }
-function x() {
+function getCatalogItems() {
     try {
-        PlayFabClient.GetCatalogItems("1", C);
+        PlayFabClient.GetCatalogItems("1", getCatalogItemsCallback);
     } catch (e) {
         console.log(e);
     }
 }
-function C(error, result) {
+function getCatalogItemsCallback(error, result) {
     if (null !== result) {
         marketItems.populate(result.data.Catalog);
         standardCallback(error, result);

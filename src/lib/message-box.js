@@ -1,5 +1,7 @@
-const bell = new window.Audio(require('bell.mp3'));
-const unlocked = new window.Audio(require('unlocked.mp3'));
+import bellMP3 from '../asserts/media/bell.mp3';
+import unlockedMP3 from '../asserts/media/unlocked.mp3';
+const bell = new window.Audio(bellMP3);
+const unlocked = new window.Audio(unlockedMP3);
 class MessageBox {
     messages = [];
     playSounds = null;

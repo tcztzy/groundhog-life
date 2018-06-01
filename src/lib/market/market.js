@@ -1,9 +1,11 @@
-exports.userInventory = exports.kongItems = exports.marketItems = exports.tachyonCache = void 0;
-
-var c = require(54), d = require(174), f = require(114), v = require(84), p = require(85);
+import { bonusTicks, darkMatterTicks } from '../global-states';
 import PlayFabClient from 'playfab-sdk/Scripts/PlayFab/PlayFabClient';
-import { NumberStateEntity } from './state-entities';
+import { NumberStateEntity } from '../state-entities';
 import { addTachyons } from './kongregate';
+import { autoPromote, autoResearch, autoBoost } from './auto';
+import { minimalism, shadyDoctor } from 'extra';
+import { purchasedSomething } from "./purchased-something";
+import { prestigeAction } from '../ground-hogging';
 
 function consumeItemCallback(error, result) {
     if (result === null)
@@ -19,15 +21,15 @@ function consumeItem(item) {
 
 function postPurchase(item) {
     if (item.ItemId === "lifetime_boost") {
-        c.bonusTicks.add(15330);
+        bonusTicks.add(15330);
         consumeItem(item);
     }
     else if (item.ItemId === "dark_matter_rituals") {
-        c.darkMatterTicks.add(3650);
+        darkMatterTicks.add(3650);
         consumeItem(item);
     }
     else if (item.ItemId === "instant_groundhog") {
-        (f.prestigeAction)(false);
+        prestigeAction(false);
         consumeItem(item);
     }
 }
@@ -71,20 +73,20 @@ export let marketItems = new MarketItems();
 class KongItems {
     items = [];
     userItems = [];
-    consumed(e) {
+    consumed(id) {
         for (let item of this.userItems) {
-            if (item.id === e) {
+            if (item.id === id) {
                 if ("basic_pack" === item.identifier) {
                     addTachyons(2e3);
-                    d.purchasedSomething.setValue(true);
+                    purchasedSomething.setValue(true);
                 }
                 else if ("supporters_pack" === item.identifier) {
                     addTachyons(5e3);
-                    d.purchasedSomething.setValue(true);
+                    purchasedSomething.setValue(true);
                 }
                 else if ("z_super_pack" === item.identifier) {
                     addTachyons(1e4);
-                    d.purchasedSomething.setValue(true);
+                    purchasedSomething.setValue(true);
                 }
             }
         }
@@ -114,14 +116,14 @@ class UserInventory {
             if ("shady_doctor" === item.ItemId)
                 this.haveShadyDoctor = true;
         }
-        p.shadyDoctor.setValue(this.haveShadyDoctor);
-        p.minimalism.setValue(this.haveMinimalism);
+        shadyDoctor.setValue(this.haveShadyDoctor);
+        minimalism.setValue(this.haveMinimalism);
         if (!this.haveAutoPromote)
-            v.autoPromote.setValue(false);
+            autoPromote.setValue(false);
         if (!this.haveAutoResearch)
-            v.autoResearch.setValue(false);
+            autoResearch.setValue(false);
         if (!this.haveAutoBoost)
-            v.autoBoost.setValue(false);
+            autoBoost.setValue(false);
     }
     initialize(e, t) {
         this.tachyons = e;

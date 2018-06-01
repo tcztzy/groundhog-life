@@ -1,7 +1,6 @@
-import {MultModifier} from "./modifier";
-import {assert, isNumber} from "../assertions";
-
-var y = require('./185');
+import { MultModifier } from "./modifier";
+import { assert, isNumber } from "../assertions";
+import { doubleIncomeAtLevelStat } from "../stats/double-income-at-level-stat";
 
 export class JobLevelModifier extends MultModifier {
     constructor(module) {
@@ -12,7 +11,7 @@ export class JobLevelModifier extends MultModifier {
     }
 
     update() {
-        this.factor = 1 + Math.log(1 + this.xp.state.level) / Math.log(1 + y.doubleIncomeAtLevelStat.effective);
+        this.factor = 1 + Math.log(1 + this.xp.state.level) / Math.log(1 + doubleIncomeAtLevelStat.effective);
         assert(isNumber(this.factor));
         super.update();
     }

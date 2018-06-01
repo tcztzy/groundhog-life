@@ -18,23 +18,27 @@
 import { mapActions, mapGetters } from 'vuex';
 import TimeWarning from './components/TimeWarning.vue';
 import PrestigeInfo from './components/PrestigeInfo.vue';
+import ProgressModal from './components/ProgressModal.vue';
 import MessageBox from './components/MessageBox.vue';
 import AusterityAlert from './components/AusterityAlert.vue';
 import SidebarDisplay from './components/SidebarDisplay.vue';
+import NavbarDisplay from './components/NavbarDisplay.vue';
+import BonusticksModal from './components/BonusTicksModal.vue';
+import FooterDisplay from './components/FooterDisplay.vue';
 
 export default {
     name: "app",
     components: {
         TimeWarning,
         PrestigeInfo,
-        // ProgressModal,
+        ProgressModal,
         SidebarDisplay,
-        // NavbarDisplay,
+        NavbarDisplay,
         // MainPane,
-        // FooterDisplay,
+        FooterDisplay,
         AusterityAlert,
         MessageBox,
-        // BonusticksModal
+        BonusticksModal
     },
     computed: mapGetters([
         'timeConfig',

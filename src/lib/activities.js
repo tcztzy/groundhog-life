@@ -87,12 +87,12 @@ class Activity extends BasicEntity {
 
 export let sleep = new Activity('activitySleep', 'Sleep', 'sleeping', 480, true, '#007D43', () => null, true);
 
-function L(module) {
+function L() {
     currentJobContainer.job.xp.gainExperience(work.getDuration());
 }
 export let work = new Activity('activityWork', 'Work', 'working', 480, true, '#F6768E', L, true);
 
-function A(module) {
+function A() {
     currentResearchContainer.area && currentResearchContainer.area.xp.gainExperience(research.getDuration());
 }
 let research = new Activity('activityResearch', 'Research', 'researching', 0, true, 'FF7A5C', A, true);

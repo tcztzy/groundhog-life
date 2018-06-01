@@ -1,4 +1,4 @@
-import {BasicEntity} from "./basic-entity";
+import { BasicEntity } from "./basic-entity";
 import { log } from "./log";
 
 class CurrentResearchContainer extends BasicEntity {

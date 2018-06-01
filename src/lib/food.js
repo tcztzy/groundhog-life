@@ -7,7 +7,7 @@ import { createSelectedLock } from "./locks";
 import { Stat } from "./stats/stat";
 import { BasicEntity } from "./basic-entity";
 import { AddModifier } from "./modifiers/modifier";
-import {yugle} from './careers/yugle';
+import { yugle } from './careers/yugle';
 
 export let foodCostsPerDayStat = new Stat('foodCostsPerDayStat', 'Food costs/day', 0);
 export let foodQualityStat = new Stat('foodquality', 'Food Quality', 0, 2);
@@ -89,7 +89,7 @@ export let foodOptions = [
     threeStarCook,
     molecularCooking
 ];
-export let selectFoodOption = function (foodOption) {
+export function selectFoodOption(foodOption) {
     if (foodOption === yugleCampus && currentJobContainer.job.career !== yugle)
         return void messageBox.addMessage('Need to work at Yugle to eat on Yugle Campus!');
     let timeDelta = foodOption.time - selectedFoodOption.time;
@@ -105,4 +105,4 @@ export let selectFoodOption = function (foodOption) {
         selectedFoodOption = foodOption;
     } else
         messageBox.addMessage('Not enough free time! Need ' + formatMinutes(timeDelta) + '.');
-};
+}

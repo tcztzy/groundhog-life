@@ -1,7 +1,7 @@
 import { Career } from './career';
 import { configurePayProgression, Job } from "./job";
 import { createLevelLockChain } from "../locks";
-import {configureXpProgression} from '../xp';
+import { configureXpProgression } from '../xp';
 
 export let unpaidIntern = new Job('yugle1', 'Unpaid Intern');
 export let juniorDeveloper = new Job('yugle2', 'Junior Developer');

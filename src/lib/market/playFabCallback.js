@@ -13,7 +13,9 @@ function wrap(error) {
         return "";
     let errorMessage = error.errorMessage;
     for (let a in error.errorDetails)
-        for (let n in error.errorDetails[a])
-            errorMessage += `\n${a}: ${error.errorDetails[a][n]}`;
+        if (error.errorDetails.hasOwnProperty(a))
+            for (let n in error.errorDetails[a])
+                if (error.errorDetails[a].hasOwnProperty(n))
+                    errorMessage += `\n${a}: ${error.errorDetails[a][n]}`;
     return errorMessage;
 }

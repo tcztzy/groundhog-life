@@ -19,7 +19,7 @@ export default {
     ]),
     methods: {
         getEmoji: function () {
-            return require(`./${this.stats.happiness.emojiName()}_emoji.svg`);
+            return require(`../asserts/img/${this.stats.happiness.emojiName()}_emoji.svg`);
         },
         showInfo: function () {
             this.selectPane(this.lifestylePane);

@@ -70,13 +70,13 @@ export function createUnlockedLock(lock, locks) {
     lock.subscribe(locks);
 }
 
-export function createCustomLock(keyholders, locks, require) {
+export function createCustomLock(keyholders, locks, check) {
     let name = 'Custom Lock: ' + locks.id;
     for (let keyholder of keyholders) {
         keyholder.subscribe(locks);
         name += ' ' + keyholder.id;
     }
-    locks.locks.addLock(new Lock(name, require, keyholders));
+    locks.locks.addLock(new Lock(name, check, keyholders));
 }
 
 export function createAnyLock(keyholders, locks, check) {

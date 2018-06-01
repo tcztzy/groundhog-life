@@ -23,7 +23,7 @@ import { mapGetters } from 'vuex';
 import { formatDays } from '../lib/utils';
 export default {
     name: 'bonusticks-modal',
-    computed: s.mapGetters(['time']),
+    computed: mapGetters(['time']),
     methods: {
         formatDays,
         ...mapGetters(['mapActions'])

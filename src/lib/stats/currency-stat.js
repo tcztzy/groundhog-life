@@ -1,7 +1,7 @@
 import { Stat } from './stat';
-import { dailyWorkIncomeStat } from './stats/daily-work-income-stat';
-import { foodCostsPerDayStat } from "./food";
-import { StatEffectiveAddModifier, StatEffectiveMultModifier } from "./modifiers";
+import { dailyWorkIncomeStat } from './daily-work-income-stat';
+import { foodCostsPerDayStat } from "../food";
+import { StatEffectiveAddModifier, StatEffectiveMultModifier } from "../modifiers/modifier";
 
 let dailyExpensesStat = new Stat('dailyExpensesStat', 'Expenses', 0, 2, '$', '', !1);
 let u = new StatEffectiveAddModifier(dailyExpensesStat.id + '_foodCostsPerDayMod', 'Food', 1, foodCostsPerDayStat);

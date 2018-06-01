@@ -1,5 +1,5 @@
 import { BasicEntity } from './basic-entity';
-import {Stat} from "./stats/stat";
+import { Stat } from "./stats/stat";
 
 class StateClass {}
 

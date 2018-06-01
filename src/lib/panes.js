@@ -1,4 +1,4 @@
-import {Pane, PaneGroup} from "./pane";
+import { Pane, PaneGroup } from "./pane";
 
 export let topLevelPanes = new PaneGroup();
 export let jobPane = new Pane('job-pane', 'Job', 'job-display', topLevelPanes, false);

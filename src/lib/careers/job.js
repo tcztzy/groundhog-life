@@ -3,12 +3,12 @@ import { BasicEntity } from "../basic-entity";
 import { assert } from '../assertions';
 import {XPModule} from '../xp';
 import {jobPane} from "../panes";
-
-
-var y = require('./186'), M = require('./31'), k = require('./170');
+import { createWorkXpPerHourStat } from '../stats/xp-per-hour-stat';
+import { IncomePerWorkHourStat } from '../stats/income-per-work-hour-stat';
+import { exponentialProgression } from '../exponential-progression';
 
 export function configurePayProgression(module, exports, require, n) {
-    let r = (0, k.exponentialProgression)(module.length, n);
+    let r = exponentialProgression(module.length, n);
     r = r.map(function (module) {
         return module * require / r.slice(-1)[0];
     });
@@ -30,9 +30,9 @@ export class Job extends BasicEntity {
         i.active = r;
         super(module, require, i);
 
-        let l = (0, M.createWorkXpPerHourStat)(this.id + '_xp_per_hour');
+        let l = createWorkXpPerHourStat(this.id + '_xp_per_hour');
         this.xp = new XPModule(this.id + 'experience', this.name + ' experience', l);
-        this.income = new y.IncomePerWorkHourStat(this, n);
+        this.income = new IncomePerWorkHourStat(this, n);
         this.logUnlock = true;
         this.update();
     }

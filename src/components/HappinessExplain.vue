@@ -39,7 +39,7 @@ export default {
     ]),
     methods: {
         getEmoji: function () {
-            return require(`./${this.happiness.emojiName()}_emoji.svg`);
+            return require(`../asserts/img/${this.happiness.emojiName()}_emoji.svg`);
         }
     }
 };
