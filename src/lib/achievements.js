@@ -1,7 +1,8 @@
-var i = require('./117'), o = require('./121'), u = require('./68'), l = require('./123'), c = require('./119'), f = require('./41'), m = require('./113'), y = require('./55');
+var i = require('./117'), o = require('./121'), u = require('./68'), l = require('./123'), c = require('./119'), f = require('./41'), m = require('./113');
 import { Achievement, AG } from "./achievement";
 import { currentLife, currentLoop, currentLifeThisLoop } from "./life-loop";
 import { yugle, yugleCeo } from "./careers/yugle";
+import { labCleaner, lambdaComplexTrainee, darkPlateauCeo } from "./careers/dark-plateau";
 import { happinessStat } from "./stats/happiness-stat";
 import { molecularCooking } from "./food";
 import { battle } from "./battle";
@@ -188,17 +189,17 @@ achievements.push(ag_mood);
 
 
 let achievement_dark_plateau = new Achievement('achievement_dark_plateau', 'Welcome...', '...to the Dark Plateau Transit System', function () {
-    return y.labCleaner.xp.highestLevelEverIncludingThisLife();
+    return labCleaner.xp.highestLevelEverIncludingThisLife();
 }, 1);
-y.labCleaner.xp.subscribe(achievement_dark_plateau);
+labCleaner.xp.subscribe(achievement_dark_plateau);
 let K = new Achievement('achievement_freeman', 'Gordon', 'Unlock the Greek Letter Complex', function () {
-    return y.lambdaComplexTrainee.xp.highestLevelEverIncludingThisLife();
+    return lambdaComplexTrainee.xp.highestLevelEverIncludingThisLife();
 }, 1);
-y.lambdaComplexTrainee.xp.subscribe(K);
+lambdaComplexTrainee.xp.subscribe(K);
 let ee = new Achievement('achievement_not_breen', 'Kleiner', 'Level 10 Dark Plateau CEO', function () {
-    return y.darkPlateauCeo.xp.highestLevelEverIncludingThisLife();
+    return darkPlateauCeo.xp.highestLevelEverIncludingThisLife();
 }, 10);
-y.darkPlateauCeo.xp.subscribe(ee);
+darkPlateauCeo.xp.subscribe(ee);
 let te = new Achievement('achievement_laser_gun', 'Planetary Gunslinger', 'Level 1 Lasergun', function () {
     return laserGun.xp.highestLevelEverIncludingThisLife();
 }, 1);

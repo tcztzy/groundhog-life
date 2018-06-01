@@ -55,6 +55,7 @@
         "52": "./components/NavbarDisplay.vue/NavbarDisplay.vue",
         "53": "./lib/xp",
         "54": "./lib/global-states",
+        "55": "./lib/careers/dark-plateau",
         "58": "./lib/saver",
         "59": "./lib/food",
         "60": "./node_modules/core-js/library/modules/_object-keys",
