@@ -6,7 +6,7 @@ import { labCleaner, lambdaComplexTrainee, darkPlateauCeo } from "./careers/dark
 import { happinessStat } from "./stats/happiness-stat";
 import { molecularCooking } from "./food";
 import { battle } from "./battle";
-import { sleep} from "./activities";
+import { sleep } from "./activities";
 import { laserGun } from "./physics";
 
 export let achievements = [];

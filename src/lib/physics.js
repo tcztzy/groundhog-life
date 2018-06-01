@@ -1,8 +1,9 @@
-var n = require('./70'), r = require('./124');
+var r = require('./124');
 import { createLevelLock } from "./locks";
 import { LevelAddMultModifier } from "./modifiers/modifier";
 import { Area } from "./area";
 import { lambdaComplexTrainee, darkPlateauCeo } from "./careers/dark-plateau";
+import { Field } from "./field";
 
 export let dmScanner = new Area('area_dmScanner', 'Dark Matter Scanning', []);
 export let anomaly = new Area('area_investigateAnomaly', 'Investigate Anomaly', []);
@@ -33,4 +34,4 @@ createLevelLock(lambdaComplexTrainee, dmScanner, 1);
 createLevelLock(studyMirroredShip, loopTrapResearch, 250);
 createLevelLock(darkPlateauCeo, laserGun, 10);
 createLevelLock(darkPlateauCeo, loopTrapResearch, 10);
-export let physics = new n.Field('physics', 'Physics', m);
+export let physics = new Field('physics', 'Physics', m);
