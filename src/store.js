@@ -1,28 +1,28 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { currentJobContainer } from './lib/containers/career-containers';
-import { setupGame } from './lib/setup-game';
-import { keyBindings } from './lib/key-bindings';
-import { currentResearchContainer } from './lib/containers/research-container';
+import { currentJobContainer } from '@/lib/containers/career-containers';
+import { setupGame } from '@/lib/setup-game';
+import { keyBindings } from '@/lib/key-bindings';
+import { currentResearchContainer } from '@/lib/containers/research-container';
 import {
     dailyExpensesStat as dailyExpenses,
     dailyIncomeStat as dailyIncome,
     dailyNetIncomeStat as dailyNetIncome,
     expenseRatioStat as expenseRatio,
     investmentReturnStat as investmentReturn
-} from './lib/stats/currency-stat';
+} from '@/lib/stats/currency-stat';
 import {
     foodOptions,
     selectFoodOption,
     foodCostsPerDayStat as foodCostsPerDay,
     foodQualityStat as foodQuality
-} from './lib/food';
-import { activities, research, work, eat } from './lib/activities';
-import { currentDay } from './lib/game-time';
-import { currentLife, currentLifeThisLoop, currentLoop } from './lib/life-loop';
-import { saver } from './lib/saver';
-import { createAnyLock } from './lib/locks';
-import { log } from './lib/log';
+} from '@/lib/food';
+import { activities, research, work, eat } from '@/lib/activities';
+import { currentDay } from '@/lib/game-time';
+import { currentLife, currentLifeThisLoop, currentLoop } from '@/lib/life-loop';
+import { saver } from '@/lib/saver';
+import { createAnyLock } from '@/lib/locks';
+import { log } from '@/lib/log';
 import {
     lifestylePane,
     boostsPane,
@@ -38,15 +38,15 @@ import {
     groundhogMarketPane,
     settingsPane,
     otherPane
-} from 'lib/panes';
-import { messageBox } from './lib/message-box';
-import { prestiger } from './lib/prestiger';
-import { logPlayerProgression, startLogin } from './lib/market/kongregate';
-import { loopTrap } from './lib/loop-trap';
-import { energyStat as energy } from "./lib/stats/energy-stat";
-import { baseResearchXpPerHourStat, baseWorkXpPerHourStat } from "./lib/stats/xp-per-hour-stat";
-import { happinessStat as happiness } from "./lib/stats/happiness-stat";
-import { healthStat as health } from "./lib/stats/health-stat";
+} from '@/lib/panes';
+import { messageBox } from '@/lib/message-box';
+import { prestiger } from '@/lib/prestiger';
+import { logPlayerProgression, startLogin } from '@/lib/market/kongregate';
+import { loopTrap } from '@/lib/loop-trap';
+import { energyStat as energy } from "@/lib/stats/energy-stat";
+import { baseResearchXpPerHourStat, baseWorkXpPerHourStat } from "@/lib/stats/xp-per-hour-stat";
+import { happinessStat as happiness } from "@/lib/stats/happiness-stat";
+import { healthStat as health } from "@/lib/stats/health-stat";
 import {
     autoBoost,
     autoPromote,
@@ -57,18 +57,18 @@ import {
     autoPromoteJustPause,
     autoPromoteMinLevel,
     autoResearchJustPause
-} from "./lib/market/auto";
-import { achievements } from "./lib/achievements";
-import { darkMatterTicks, lastSave, paused, turbo, bonusTicks } from "./lib/global-states";
-import { playSounds, pauseOnPrestige, idleMode, nightMode, xpPerHour } from "./lib/settings";
-import { userInventory, marketItems, kongItems } from "./lib/market/market";
-import { battle } from "./lib/battle";
-import { studyMirroredShip } from "./lib/physics";
-import { homes, homeToHappinessFun } from "./lib/homes";
-import { assistants } from "./lib/assistants";
-import { money } from "./lib/currency";
-import { schedule } from "./lib/schedule";
-import { careers } from "./lib/careers";
+} from "@/lib/market/auto";
+import { achievements } from "@/lib/achievements";
+import { darkMatterTicks, lastSave, paused, turbo, bonusTicks } from "@/lib/global-states";
+import { playSounds, pauseOnPrestige, idleMode, nightMode, xpPerHour } from "@/lib/settings";
+import { userInventory, marketItems, kongItems } from "@/lib/market/market";
+import { battle } from "@/lib/battle";
+import { studyMirroredShip } from "@/lib/physics";
+import { homes, homeToHappinessFun } from "@/lib/homes";
+import { assistants } from "@/lib/assistants";
+import { money } from "@/lib/currency";
+import { schedule } from "@/lib/schedule";
+import { careers } from "@/lib/careers";
 
 var f = require('./lib/89'), v = require('./lib/177'),
     I = require('./lib/169'),

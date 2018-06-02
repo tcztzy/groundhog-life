@@ -1,18 +1,19 @@
-var c = require('./119'), m = require('./113');
-import { Achievement, AG } from "./achievement";
-import { currentLife, currentLoop, currentLifeThisLoop } from "./life-loop";
-import { yugle, yugleCeo } from "./careers/yugle";
-import { burgerFlipper, bunMastersCeo } from "./careers/bun-masters";
-import { labCleaner, lambdaComplexTrainee, darkPlateauCeo } from "./careers/dark-plateau";
-import { happinessStat } from "./stats/happiness-stat";
-import { molecularCooking } from "./food";
-import { battle } from "./battle";
-import { sleep } from "./activities";
-import { laserGun } from "./physics";
-import { money } from "./currency";
-import { programming } from "./programming";
-import { alg } from "./algorithm";
-import { se } from "./software-engineering";
+var m = require('@/lib/113');
+import { Achievement, AG } from "@/lib/achievement";
+import { currentLife, currentLoop, currentLifeThisLoop } from "@/lib/life-loop";
+import { yugle, yugleCeo } from "@/lib/careers/yugle";
+import { burgerFlipper, bunMastersCeo } from "@/lib/careers/bun-masters";
+import { labCleaner, lambdaComplexTrainee, darkPlateauCeo } from "@/lib/careers/dark-plateau";
+import { happinessStat } from "@/lib/stats/happiness-stat";
+import { molecularCooking } from "@/lib/food";
+import { battle } from "@/lib/battle";
+import { sleep } from "@/lib/activities";
+import { laserGun } from "@/lib/physics";
+import { money } from "@/lib/currency";
+import { programming } from "@/lib/programming";
+import { alg } from "@/lib/algorithm";
+import { se } from "@/lib/software-engineering";
+import { investment } from "@/lib/investment";
 
 export let achievements = [];
 
@@ -63,9 +64,9 @@ let S = new Achievement('ach_gluttony', 'Gluttony', 'Hire Molecular Cooking Crew
 }, 365);
 molecularCooking.subscribe(S);
 let A = new Achievement('ach_greed', 'Greed', 'Investment Research Level 500', function () {
-    return c.investment.xp.highestLevelEverIncludingThisLife();
+    return investment.xp.highestLevelEverIncludingThisLife();
 }, 500);
-c.investment.xp.subscribe(A);
+investment.xp.subscribe(A);
 let I = new Achievement('ach_sloth', 'Sloth', 'Sleep for 22 Hours', function () {
     return sleep.duration.state.highestEffectiveEver / 60;
 }, 22);

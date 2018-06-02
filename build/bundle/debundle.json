@@ -116,6 +116,7 @@
         "115": "./lib/assistants",
         "116": "./lib/settings",
         "117": "./lib/careers/bun-masters",
+        "119": "./lib/investment",
         "120": "./lib/leadership",
         "121": "./lib/algorithm",
         "122": "./lib/computer-science",
