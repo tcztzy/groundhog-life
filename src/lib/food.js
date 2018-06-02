@@ -1,4 +1,4 @@
-import { currentJobContainer } from "./career-containers";
+import { currentJobContainer } from "./containers/career-containers";
 import { eat, freeTime } from "./activities";
 import { formatMinutes } from "./utils";
 import { messageBox } from "./message-box";

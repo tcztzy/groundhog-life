@@ -2,7 +2,7 @@ import { Stat } from "./stats/stat";
 import { investmentReturnStat, dailyIncomeStat, dailyExpensesStat, expenseRatioStat } from './stats/currency-stat';
 import { createCustomLock, createLevelLock, createUnlockedLock } from './locks';
 import { sleep, research, work, chores } from './activities';
-import { currentJobContainer } from './career-containers';
+import { currentJobContainer } from './containers/career-containers';
 import { loopTrap } from "./loop-trap";
 import { battle } from "./battle";
 import { minimalism, shadyDoctor } from "./market/extra";
@@ -17,11 +17,14 @@ import { lambdaPane, jobPane, researchPane, achievementPane } from "./panes";
 import { loopTrapResearch, laserGun } from "./physics";
 import { achievements } from "./achievements";
 import { darkMatterTicks } from "./global-states";
+import { homeToHappinessFun } from "./homes";
+import { currentHomeContainer } from "./containers/home-container";
+import { money } from "./currency";
+import { jobs, careers } from "./careers";
 
-var d = require('../183'), v = require('../56'),
-    h = require('../57'), m = require('../41'),
-    k = require('../118'),
-    x = require('../89');
+var d = require('./183'),
+    x = require('./89');
+
 function D() {
     const module = new MultModifier('dmtMod', 'Dark Matter Rituals', 10, 2);
     createCustomLock([darkMatterTicks], module, function () {
@@ -29,6 +32,7 @@ function D() {
     });
     energyStat.addModifier(module);
 }
+
 function j() {
     const module = new LevelAddModifier('lt_research', 'Research', 10, loopTrapResearch.xp, 0.01, function (module) {
         return 0.05 - 0.05 / (1 + Math.log10(module + 1));
@@ -40,9 +44,10 @@ function j() {
     loopTrap.efficiency.addModifier(exports);
     createLevelLock(laserGun, lambdaPane, 1);
 }
+
 function N() {
     var module = new PaneGroup(true);
-    for (let career of k.careers) {
+    for (let career of careers) {
         let u = new Pane(career.id + '-pane', career.name, 'job-selector', module);
         u.state.selected = true;
         u.career = career;
@@ -66,23 +71,26 @@ function N() {
     }
     achievementPane.subpanes = g.panes;
 }
+
 function O() {
     let research_hours_mod = new StatEffectiveMultModifier('research_hours_mod', 'Hours', 10, research.duration, x => x / 60);
     for (let area of x.areas) {
         area.xp.xpPerDayStat.addModifier(research_hours_mod);
     }
     let work_hours_mod = new StatEffectiveMultModifier('work_hours_mod', 'Hours', 10, work.duration, x => x / 60);
-    for (let job of k.jobs) {
+    for (let job of jobs) {
         job.xp.xpPerDayStat.addModifier(work_hours_mod);
     }
 }
+
 function B() {
-    var module = new GenericAddModifier('investment_income_per_day_mod', 'Investments', 2, m.money, function (module) {
+    var module = new GenericAddModifier('investment_income_per_day_mod', 'Investments', 2, money, function (module) {
         return module.getValue() * (Math.pow(1 + investmentReturnStat.effective, 1 / 365) - 1);
     });
     dailyIncomeStat.addModifier(module);
     investmentReturnStat.subscribe(module);
 }
+
 function R() {
     function e(exports) {
         return shadyDoctor.getValue() && (exports = Math.max(0, exports - 10)), exports < 22 ? 1.2 - 0.005 * exports : exports < 40 ? e(21) - 0.01 * (exports - 21) : Math.max(0.01, e(39) - 0.02 * (exports - 39));
@@ -113,15 +121,16 @@ function R() {
         return foodQualityStat.effective < 0.7 ? 'Not exactly great food.' : foodQualityStat.effective < 1.6 ? 'Proper food!' : foodQualityStat.effective < 2.5 ? 'Pretty, pretty good food!' : foodQualityStat.effective < 3.5 ? 'Great Food!' : 'Not sure what I\'m eating, but it\'s pretty amazing.';
     };
 }
-var V = function () {
-    var module = new GenericAddModifier('happinessFromHomeFactorMod', 'Home (Max 0.6)', 1, v.currentHomeContainer, function (module) {
-        return (0, h.homeToHappinessFun)(module.home.quality.effective);
+
+function V() {
+    var module = new GenericAddModifier('happinessFromHomeFactorMod', 'Home (Max 0.6)', 1, currentHomeContainer, function (module) {
+        return homeToHappinessFun(module.home.quality.effective);
     });
     happinessStat.addModifier(module);
     module.explain = function () {
         var module = minimalism.getValue() ? 5 : 0, exports = minimalism.getValue() ? ' (Minimalism active)' : '',
             require = Math.floor(currentYear.getValue() / (5 + module)),
-            n = v.currentHomeContainer.home.quality.effective, r = n - require;
+            n = currentHomeContainer.home.quality.effective, r = n - require;
         return r >= 1 ? 'Nice home.' + exports : r <= -1 ? 'I want a nicer home.' + exports : 'Content about my home.' + exports;
     };
     minimalism.subscribe(happinessStat);
@@ -173,7 +182,7 @@ var V = function () {
         return module < 0.2 ? 'I\'m overworked.' : module < 0.4 ? 'Feeling slightly stressed out.' : module >= 0.4 ? 'Good work-life balance.' : '';
     };
     currentYear.subscribe(happinessStat);
-};
+}
 
 export function setupGame() {
     B();
@@ -183,5 +192,5 @@ export function setupGame() {
     O();
     j();
     D();
-    currentJobContainer.defaultJob = k.careers[0].jobs[0];
+    currentJobContainer.defaultJob = careers[0].jobs[0];
 }

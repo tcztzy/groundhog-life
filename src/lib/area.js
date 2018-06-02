@@ -1,7 +1,7 @@
 import { BasicEntity } from "./basic-entity";
 import { createResearchXpPerHourStat } from "./stats/xp-per-hour-stat";
 import { linearExponentialXpIncrease, XPModule } from "./xp";
-import { currentResearchContainer } from "./research-container";
+import { currentResearchContainer } from "./containers/research-container";
 import { assert } from "./assertions";
 import { researchPane } from "./panes";
 

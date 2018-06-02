@@ -1,4 +1,4 @@
-import { currentJobContainer } from "../career-containers";
+import { currentJobContainer } from "../containers/career-containers";
 import { BasicEntity } from "../basic-entity";
 import { assert } from '../assertions';
 import { XPModule } from '../xp';

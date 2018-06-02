@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { currentJobContainer } from './lib/career-containers';
+import { currentJobContainer } from './lib/containers/career-containers';
 import { setupGame } from './lib/setup-game';
 import { keyBindings } from './lib/key-bindings';
-import { currentResearchContainer } from './lib/research-container';
+import { currentResearchContainer } from './lib/containers/research-container';
 import {
     dailyExpensesStat as dailyExpenses,
     dailyIncomeStat as dailyIncome,
@@ -64,17 +64,19 @@ import { playSounds, pauseOnPrestige, idleMode, nightMode, xpPerHour } from "./l
 import { userInventory, marketItems, kongItems } from "./lib/market/market";
 import { battle } from "./lib/battle";
 import { studyMirroredShip } from "./lib/physics";
+import { homes, homeToHappinessFun } from "./lib/homes";
+import { assistants } from "./lib/assistants";
+import { money } from "./lib/currency";
+import { schedule } from "./lib/schedule";
+import { careers } from "./lib/careers";
 
-var c = require(118), f = require(89), v = require(177), g = require(115),
-    k = require(57),
-    w = require(129),
-    S = require(41),
-    I = require(169),
-    E = require(86),
-    D = require(165),
-    O = require(112),
-    z = require(172),
-    J = require(173);
+var f = require('./lib/89'), v = require('./lib/177'),
+    I = require('./lib/169'),
+    E = require('./lib/86'),
+    D = require('./lib/165'),
+    O = require('./lib/112'),
+    z = require('./lib/172'),
+    J = require('./lib/173');
 
 Vue.use(Vuex);
 
@@ -128,7 +130,7 @@ let timeConfig = {
     sessionStart: 0,
     sessionTicks: 0
 };
-let currency = { money: S.money };
+let currency = { money };
 let time = {
     currentDay,
     currentLife,
@@ -169,12 +171,12 @@ let state = {
     autoBoostStack,
     autoPromoteJustPause,
     autoResearchJustPause,
-    homes: k.homes,
+    homes,
     boosts: O.boosts,
     time,
     stats,
-    careers: c.careers,
-    schedule: w.schedule,
+    careers,
+    schedule,
     activities,
     timeConfig,
     fields: f.fields,
@@ -200,7 +202,7 @@ let state = {
     otherPane,
     daysBehind: 0,
     achievements,
-    assistants: g.assistants,
+    assistants,
     messageBox,
     paused,
     turbo,
@@ -228,7 +230,7 @@ let state = {
     keyBindings,
     darkMatterTicks,
     studyMirroredShip,
-    homeToHappinessFun: k.homeToHappinessFun
+    homeToHappinessFun
 };
 let getters = {
     currency: e => e.currency,
@@ -318,7 +320,7 @@ let de = function (e) {
     e.time.currentDay.incrementValue();
     for (let activity of e.activities)
         activity.do(e);
-    for (let career of c.careers)
+    for (let career of careers)
         if (career.secretProject)
             career.advanceSecretProject();
     e.battle.update();
@@ -413,7 +415,7 @@ let mutations = {
         const t = new Date;
         e.time.lastTime = t.getTime();
     },
-    ACKNOWLEDGE_AUSTERITY: S.money.acknowledgeAusterity,
+    ACKNOWLEDGE_AUSTERITY: money.acknowledgeAusterity,
     ACKNOWLEDGE_MESSAGE: messageBox.messages.pop,
     HARD_RESET: () => {saver.hardReset(); saver.stop(); window.location.reload();},
     IMPORT_SAVE: (e, t) => {e.saver.import(t); userInventory.updateAutos();}

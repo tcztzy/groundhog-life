@@ -1,5 +1,5 @@
 import { Stat } from './stat';
-import { currentIncomeContainer } from "../career-containers";
+import { currentIncomeContainer } from "../containers/career-containers";
 import { work } from "../activities";
 
 class DailyWorkIncomeStat extends Stat {

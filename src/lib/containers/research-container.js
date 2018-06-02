@@ -1,5 +1,5 @@
-import { BasicEntity } from "./basic-entity";
-import { log } from "./log";
+import { BasicEntity } from "../basic-entity";
+import { log } from "../log";
 
 class CurrentResearchContainer extends BasicEntity {
     area = null;

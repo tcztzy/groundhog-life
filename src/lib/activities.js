@@ -2,8 +2,8 @@ import { BasicEntity } from "./basic-entity";
 import { Stat } from "./stats/stat";
 import { NumberStateEntity } from "./state-entities";
 import { assert } from "./assertions";
-import { currentJobContainer } from "./career-containers";
-import { currentResearchContainer } from "./research-container";
+import { currentJobContainer } from "./containers/career-containers";
+import { currentResearchContainer } from "./containers/research-container";
 
 class DurationProxy extends NumberStateEntity {}
 
