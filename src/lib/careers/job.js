@@ -1,11 +1,11 @@
-import { currentJobContainer } from "../containers/career-containers";
-import { BasicEntity } from "../basic-entity";
-import { assert } from '../assertions';
-import { XPModule } from '../xp';
-import { jobPane } from "../panes";
-import { createWorkXpPerHourStat } from '../stats/xp-per-hour-stat';
-import { IncomePerWorkHourStat } from '../stats/income-per-work-hour-stat';
-import { exponentialProgression } from '../exponential-progression';
+import { currentJobContainer } from "@/lib/containers/career-containers";
+import { BasicEntity } from "@/lib/basic-entity";
+import { assert } from '@/lib/assertions';
+import { XPModule } from '@/lib/xp';
+import { jobPane } from "@/lib/panes";
+import { createWorkXpPerHourStat } from '@/lib/stats/xp-per-hour-stat';
+import { IncomePerWorkHourStat } from '@/lib/stats/income-per-work-hour-stat';
+import { exponentialProgression } from '@/lib/exponential-progression';
 
 export function configurePayProgression(module, exports, require, n) {
     let r = exponentialProgression(module.length, n);

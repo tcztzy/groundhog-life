@@ -1,5 +1,5 @@
-import { BasicEntity } from "./basic-entity";
-import { researchPane } from "./panes";
+import { BasicEntity } from "../basic-entity";
+import { researchPane } from "../panes";
 
 class State {}
 

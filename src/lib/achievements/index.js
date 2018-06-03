@@ -7,11 +7,11 @@ import { happinessStat } from "@/lib/stats/happiness-stat";
 import { molecularCooking } from "@/lib/food";
 import { battle } from "@/lib/battle";
 import { sleep } from "@/lib/activities";
-import { laserGun } from "@/lib/physics";
+import { laserGun } from "@/lib/fields/physics";
 import { money } from "@/lib/currency";
-import { programming } from "@/lib/programming";
-import { alg } from "@/lib/algorithm";
-import { se } from "@/lib/software-engineering";
+import { programming } from "@/lib/fields/computer-science/programming";
+import { alg } from "@/lib/fields/computer-science/algorithm";
+import { se } from "@/lib/fields/computer-science/software-engineering";
 import { investment } from "@/lib/investment";
 import { keep } from "@/lib/events/lost-wallet";
 

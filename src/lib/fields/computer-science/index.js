@@ -1,5 +1,5 @@
-import { Field } from "./field";
-import { createLevelLock } from "./locks";
+import { Field } from "../field";
+import { createLevelLock } from "@/lib/locks";
 import { programming } from "./programming";
 import { alg } from "./algorithm";
 import { se } from "./software-engineering";

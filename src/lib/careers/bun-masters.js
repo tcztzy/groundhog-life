@@ -1,8 +1,8 @@
-import { createLevelLockChain, createLevelLock } from "../locks";
-import { configureXpProgression } from "../xp";
+import { createLevelLockChain, createLevelLock } from "@/lib/locks";
+import { configureXpProgression } from "@/lib/xp";
+import { leadership } from "@/lib/leadership";
 import { Job, configurePayProgression } from "./job";
 import { Career } from "./career";
-import { leadership } from "../leadership";
 
 let bm1 = new Job('bm1', 'Burger Flipper', 10, true);
 let bm2 = new Job('bm2', 'Chief Flipper');

@@ -1,5 +1,5 @@
-import { BasicEntity } from "../basic-entity";
-import { log } from "../log";
+import { BasicEntity } from "@/lib/basic-entity";
+import { log } from "@/lib/log";
 
 class CurrentIncomeContainer extends BasicEntity {
     constructor() {

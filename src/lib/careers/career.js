@@ -1,4 +1,4 @@
-import { BasicEntity } from "../basic-entity";
+import { BasicEntity } from "@/lib/basic-entity";
 
 class _ {
     level = 0;

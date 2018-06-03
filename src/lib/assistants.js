@@ -1,13 +1,13 @@
-import { BooleanStateEntity } from "./state-entities";
-import { createTrueStateLock, createUnlockedLock, createCustomLock, createLevelLock } from "./locks";
-import { messageBox } from "./message-box";
-import { homes } from "./homes";
-import { currentHomeContainer } from "./containers/home-container";
-import { baseWorkXpPerHourStat, baseResearchXpPerHourStat } from "./stats/xp-per-hour-stat";
-import { freeTime, research, work } from "./activities";
-import { AddModifier, MultModifier } from "./modifiers/modifier";
-import { dailyExpensesStat } from "./stats/currency-stat";
-import { compsci } from "./computer-science";
+import { BooleanStateEntity } from "@/lib/state-entities";
+import { createTrueStateLock, createUnlockedLock, createCustomLock, createLevelLock } from "@/lib/locks";
+import { messageBox } from "@/lib/message-box";
+import { homes } from "@/lib/homes";
+import { currentHomeContainer } from "@/lib/containers/home-container";
+import { baseWorkXpPerHourStat, baseResearchXpPerHourStat } from "@/lib/stats/xp-per-hour-stat";
+import { freeTime, research, work } from "@/lib/activities";
+import { AddModifier, MultModifier } from "@/lib/modifiers/modifier";
+import { dailyExpensesStat } from "@/lib/stats/currency-stat";
+import { compsci } from "@/lib/fields/computer-science";
 
 class S extends BooleanStateEntity {
     constructor(id, name, description, cost, selectAllowed=()=>true, deselectAllowed=()=>true) {

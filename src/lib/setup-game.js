@@ -14,7 +14,7 @@ import { foodQualityStat } from "@/lib/food";
 import { energyStat } from "@/lib/stats/energy-stat";
 import { PaneGroup, Pane } from "@/lib/pane";
 import { lambdaPane, jobPane, researchPane, achievementPane } from "@/lib/panes";
-import { loopTrapResearch, laserGun } from "@/lib/physics";
+import { loopTrapResearch, laserGun } from "@/lib/fields/physics";
 import { achievements } from "@/lib/achievements";
 import { darkMatterTicks } from "@/lib/global-states";
 import { homeToHappinessFun } from "@/lib/homes";

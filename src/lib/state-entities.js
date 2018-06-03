@@ -3,7 +3,7 @@ import { assert } from './assertions';
 
 
 export class StateEntity extends BasicEntity {
-    constructor(id, name, stateClass, initialValue, resetOnPrestige, resetOnGrandPrestige = false) {
+    constructor(id, name, stateClass, initialValue, resetOnPrestige, resetOnGrandPrestige=false) {
         super(id, name, new stateClass(initialValue));
         this.initialValue = initialValue;
         this.resetOnPrestige = resetOnPrestige;
@@ -24,10 +24,10 @@ export class StateEntity extends BasicEntity {
         assert(!this.resetOnPrestige || this.state.value === this.initialValue, 'state entity does not have original value after prestige: ' + this.id);
     }
 
-    setValue(initial=false) {
-        this.state.value = module;
+    setValue(value, initial=false) {
+        this.state.value = value;
         if (initial)
-            this.initialValue = module;
+            this.initialValue = value;
         this.update();
         this.integrityCheck();
     }

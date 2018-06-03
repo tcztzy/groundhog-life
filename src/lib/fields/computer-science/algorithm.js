@@ -1,7 +1,7 @@
-import { Book } from "./book";
-import { Area } from "./area";
-import { createCompletedOrReadingListLock } from "./locks";
-import { LevelAddMultModifier } from "./modifiers/modifier";
+import { Book } from "../../book";
+import { Area } from "../../area";
+import { createCompletedOrReadingListLock } from "../../locks";
+import { LevelAddMultModifier } from "../../modifiers/modifier";
 import { programming } from "./programming";
 
 export let alg1 = new Book('alg1', 'Introduction to Algorithms', 'Balancing those binary trees in no time.', 500, '0262033844');

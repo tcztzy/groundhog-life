@@ -1,9 +1,9 @@
-import { createCompletedOrReadingListLock, createLevelLock } from "./locks";
-import { LevelAddMultModifier } from "./modifiers/modifier";
-import { Area } from "./area";
-import { Book } from "./book";
+import { createCompletedOrReadingListLock, createLevelLock } from "../../locks";
+import { LevelAddMultModifier } from "../../modifiers/modifier";
+import { Area } from "../../area";
+import { Book } from "../../book";
 import { programming } from "./programming";
-import { softwareEngineer } from "./careers/yugle";
+import { softwareEngineer } from "../../careers/yugle";
 
 
 export let se1 = exports.se1 = new Book('se1', 'The Pragmatic Programmer', 'Tales from the development frontlines.', 150, '020161622X'),

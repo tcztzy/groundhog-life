@@ -1,7 +1,7 @@
 import { Job, configurePayProgression } from "./job";
 import { Career } from "./career";
-import { createLevelLockChain } from "../locks";
-import { configureXpProgression } from "../xp";
+import { createLevelLockChain } from "@/lib/locks";
+import { configureXpProgression } from "@/lib/xp";
 
 export let labCleaner = new Job('dp1', 'Lab Cleaner');
 export let labAssistant = new Job('dp2', 'Lab Assistant');

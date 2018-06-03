@@ -63,7 +63,7 @@ import { darkMatterTicks, lastSave, paused, turbo, bonusTicks } from "@/lib/glob
 import { playSounds, pauseOnPrestige, idleMode, nightMode, xpPerHour } from "@/lib/settings";
 import { userInventory, marketItems, kongItems } from "@/lib/market/market";
 import { battle } from "@/lib/battle";
-import { studyMirroredShip } from "@/lib/physics";
+import { studyMirroredShip } from "@/lib/fields/physics";
 import { homes, homeToHappinessFun } from "@/lib/homes";
 import { assistants } from "@/lib/assistants";
 import { money } from "@/lib/currency";

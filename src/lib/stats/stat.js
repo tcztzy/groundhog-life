@@ -7,11 +7,11 @@ class StatClass {
 }
 
 export class Stat extends BasicEntity {
-    constructor(id, name, n, digits = 2, prefix = '', suffix = '', higherIsBetter=true, update=true, min=null, max=null, tolerance=0.01) {
+    constructor(id, name, base, digits=2, prefix='', suffix='', higherIsBetter=true, needUpdate=true, min=null, max=null, tolerance=0.01) {
         super(id, name, new StatClass());
         this.id = id;
         this.name = name;
-        this.base = n;
+        this.base = base;
         assert(isNumber(this.base));
         this.digits = digits;
         this.prefix = prefix;
@@ -20,7 +20,7 @@ export class Stat extends BasicEntity {
         this.modifiers = [];
         this.valueChain = [];
         this.lastChangePositive = false;
-        if (update) {
+        if (needUpdate) {
             this.update();
         }
         else {
@@ -41,15 +41,15 @@ export class Stat extends BasicEntity {
         super.update(this.effectiveChanged);
     }
 
-    setBase(module) {
-        this.base = module;
-        assert(isNumber(this.base), this.name + ' ' + module);
+    setBase(base) {
+        this.base = base;
+        assert(isNumber(this.base), this.name + ' ' + base);
         this.update();
     }
 
-    addModifier(module) {
-        module.subscribe(this);
-        this.modifiers.push(module);
+    addModifier(modifier) {
+        modifier.subscribe(this);
+        this.modifiers.push(modifier);
         this.modifiers.sort(function (module, exports) {
             return module.priority - exports.priority;
         });

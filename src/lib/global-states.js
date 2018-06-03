@@ -1,4 +1,4 @@
-import { BooleanStateEntity, NumberStateEntity } from './state-entities';
+import { BooleanStateEntity, NumberStateEntity } from '@/lib/state-entities';
 
 export let paused = new BooleanStateEntity("state_paused", "Pause", false);
 export let turbo = new BooleanStateEntity("state_turbo", "Turbo", false);

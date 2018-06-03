@@ -1,8 +1,8 @@
-import { createLevelLock, createCompletedOrReadingListLock } from "./locks";
-import { yugle, unpaidIntern, juniorDeveloper } from "./careers/yugle";
-import { Book } from "./book";
-import { Area } from "./area";
-import { LevelAddMultModifier } from "./modifiers/modifier";
+import { createLevelLock, createCompletedOrReadingListLock } from "../../locks";
+import { yugle, unpaidIntern, juniorDeveloper } from "../../careers/yugle";
+import { Book } from "../../book";
+import { Area } from "../../area";
+import { LevelAddMultModifier } from "../../modifiers/modifier";
 
 export let programming1 = new Book('programming1', 'Head First Java', 'On your way to that Yugle internship.', 150, '0596009208');
 export let programming2 = new Book('programming2', 'Python Crash Course', 'No more boilerplate. Or types.', 150, '1593276036');

@@ -8,9 +8,9 @@ import { currentResearchContainer } from "./containers/research-container";
 class DurationProxy extends NumberStateEntity {}
 
 class Duration extends Stat {
-    constructor(id, name, n) {
-        super(id, name, n, 0, '', '', true, true);
-        assert(n >= -0.001, 'Activity duration is negative on construction');
+    constructor(id, name, base) {
+        super(id, name, base, 0, '', '', true, true);
+        assert(base >= -0.001, 'Activity duration is negative on construction');
         this.updateDurationString();
     }
 
@@ -24,27 +24,27 @@ class Duration extends Stat {
     }
 
     updateDurationString() {
-        let module = Math.floor(this.effective / 60), exports = this.effective - 60 * module;
-        assert(this.effective === 60 * module + exports, 'hour/minutes calculation is wrong');
-        let require = ('00' + Math.floor(exports)).substr(-2);
-        this.durationString = module + ':' + require;
+        let hours = Math.floor(this.effective / 60), minutes = this.effective - 60 * hours;
+        assert(this.effective === 60 * hours + minutes, 'hour/minutes calculation is wrong');
+        let require = ('00' + Math.floor(minutes)).substr(-2);
+        this.durationString = hours + ':' + require;
     }
 }
 
-class P {}
+class ActivityState {}
 
 class Activity extends BasicEntity {
-    constructor(id, name, n, r, i, s, o=x => x, u=false) {
-        super(id, name, new P());
-        this.originalDuration = r;
-        this.ingName = n;
-        this.durationByUser = i;
-        this.color = s;
+    constructor(id, name, ingName, originalDuration, durationByUser, color, doFun=x=>x, proxy=false) {
+        super(id, name, new ActivityState());
+        this.originalDuration = originalDuration;
+        this.ingName = ingName;
+        this.durationByUser = durationByUser;
+        this.color = color;
         this.isCurrent = false;
-        this.doFun = o;
+        this.doFun = doFun;
         this.minTime = 0;
-        this.duration = new Duration(this.id + 'duration', this.name + ' duration', r);
-        if (u) {
+        this.duration = new Duration(this.id + 'duration', this.name + ' duration', originalDuration);
+        if (proxy) {
             this.durationProxy = new DurationProxy(this.id + 'DurationProxy', this.name + ' Duration Proxy', 0, true, 0);
             this.durationProxy.setValue(this.duration.effective, true);
             this.durationProxy.dependants.push(this);
@@ -59,7 +59,7 @@ class Activity extends BasicEntity {
 
     postPrestigeAssert() {
         this.durationProxy && this.durationProxy.setValue(this.duration.effective);
-        assert('activityFreeTime' === this.id || this.duration.base === this.originalDuration, `${this.name} duration should be ${this.originalDuration}, but it is ${this.duration.base}`);
+        assert(this.id === 'activityFreeTime' || this.duration.base === this.originalDuration, `${this.name} duration should be ${this.originalDuration}, but it is ${this.duration.base}`);
     }
 
     sufficientTime() {
@@ -87,15 +87,15 @@ class Activity extends BasicEntity {
 
 export let sleep = new Activity('activitySleep', 'Sleep', 'sleeping', 480, true, '#007D43', () => null, true);
 
-function L() {
+function workFun() {
     currentJobContainer.job.xp.gainExperience(work.getDuration());
 }
-export let work = new Activity('activityWork', 'Work', 'working', 480, true, '#F6768E', L, true);
+export let work = new Activity('activityWork', 'Work', 'working', 480, true, '#F6768E', workFun, true);
 
-function A() {
+function researchFun() {
     currentResearchContainer.area && currentResearchContainer.area.xp.gainExperience(research.getDuration());
 }
-let research = new Activity('activityResearch', 'Research', 'researching', 0, true, 'FF7A5C', A, true);
+let research = new Activity('activityResearch', 'Research', 'researching', 0, true, '#FF7A5C', researchFun, true);
 
 research.sufficientTime = function () {
     return research.duration.effective > 0 || null === currentResearchContainer.area;

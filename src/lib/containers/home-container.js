@@ -1,6 +1,6 @@
-import { BasicEntity } from "../basic-entity";
-import { freeTime } from "../activities";
-import { log } from "../log";
+import { BasicEntity } from "@/lib/basic-entity";
+import { freeTime } from "@/lib/activities";
+import { log } from "@/lib/log";
 
 class HomeContainer extends BasicEntity {
     constructor() {
