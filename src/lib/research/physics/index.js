@@ -1,6 +1,6 @@
 import { createLevelLock } from "@/lib/locks";
 import { LevelAddMultModifier } from "@/lib/modifiers/modifier";
-import { Area } from "../../area";
+import { Area } from "../area";
 import { lambdaComplexTrainee, darkPlateauCeo } from "@/lib/careers/dark-plateau";
 import { Field } from "../field";
 import { qm } from './quantum-mechanics';

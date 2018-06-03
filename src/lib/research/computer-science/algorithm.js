@@ -1,5 +1,5 @@
-import { Book } from "../../book";
-import { Area } from "../../area";
+import { Book } from "../book";
+import { Area } from "../area";
 import { createCompletedOrReadingListLock } from "../../locks";
 import { LevelAddMultModifier } from "../../modifiers/modifier";
 import { programming } from "./programming";

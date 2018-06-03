@@ -26,6 +26,7 @@ class CurrentIncomeContainer extends BasicEntity {
 export let currentIncomeContainer = new CurrentIncomeContainer();
 
 class CurrentJobContainer extends BasicEntity {
+    defaultJob = null;
     constructor() {
         super('currentJobContainer', 'Current Job Container', {});
     }

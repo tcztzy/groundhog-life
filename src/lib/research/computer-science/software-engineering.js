@@ -1,7 +1,7 @@
 import { createCompletedOrReadingListLock, createLevelLock } from "../../locks";
 import { LevelAddMultModifier } from "../../modifiers/modifier";
-import { Area } from "../../area";
-import { Book } from "../../book";
+import { Area } from "../area";
+import { Book } from "../book";
 import { programming } from "./programming";
 import { softwareEngineer } from "../../careers/yugle";
 

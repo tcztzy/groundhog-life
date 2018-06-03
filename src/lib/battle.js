@@ -3,7 +3,7 @@ import { Stat } from "./stats/stat";
 import { currentYear } from './game-time';
 import globalPNG from '../asserts/img/globe.png';
 import { LevelAddMultModifier } from "./modifiers/modifier";
-import { laserGun } from "./fields/physics";
+import { laserGun } from "./research/physics";
 
 let y = 200;
 let C = (y - 10) / 365 / 42;

@@ -1,9 +1,9 @@
-import { createCompletedLock, createCompletedOrReadingListLock, createLevelLock } from "./locks";
-import { baseWorkXpPerHourStat } from "./stats/xp-per-hour-stat";
-import { MultModifier, LevelAddMultModifier } from "./modifiers/modifier";
-import { Book } from "./book";
-import { Area } from "./area";
-import { teamLead, divisionLead, cto } from "./careers/yugle";
+import { createCompletedLock, createCompletedOrReadingListLock, createLevelLock } from "@/lib/locks";
+import { baseWorkXpPerHourStat } from "@/lib/stats/xp-per-hour-stat";
+import { MultModifier, LevelAddMultModifier } from "@/lib/modifiers/modifier";
+import { Book } from "../book";
+import { Area } from "../area";
+import { teamLead, divisionLead, cto } from "@/lib/careers/yugle";
 
 export let leadership101 = new Book('leadership1', 'Leadership 101', 'Fundamentals of Leadering', 100, '0785264191');
 let c = new MultModifier(leadership101.id + '_workexp_mod', leadership101.name, 1, 1.05);

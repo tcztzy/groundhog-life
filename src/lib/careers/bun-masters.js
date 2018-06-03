@@ -1,6 +1,6 @@
 import { createLevelLockChain, createLevelLock } from "@/lib/locks";
 import { configureXpProgression } from "@/lib/xp";
-import { leadership } from "@/lib/leadership";
+import { leadership } from "@/lib/research/business/leadership";
 import { Job, configurePayProgression } from "./job";
 import { Career } from "./career";
 

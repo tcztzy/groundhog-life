@@ -63,14 +63,15 @@ import { darkMatterTicks, lastSave, paused, turbo, bonusTicks } from "@/lib/glob
 import { playSounds, pauseOnPrestige, idleMode, nightMode, xpPerHour } from "@/lib/settings";
 import { userInventory, marketItems, kongItems } from "@/lib/market/market";
 import { battle } from "@/lib/battle";
-import { studyMirroredShip } from "@/lib/fields/physics";
+import { studyMirroredShip } from "@/lib/research/physics";
 import { homes, homeToHappinessFun } from "@/lib/homes";
 import { assistants } from "@/lib/assistants";
 import { money } from "@/lib/currency";
 import { schedule } from "@/lib/schedule";
 import { careers } from "@/lib/careers";
+import { fields, areas } from "@/lib/research";
 
-var f = require('./lib/89'), v = require('./lib/177'),
+var v = require('./lib/177'),
     I = require('./lib/169'),
     E = require('./lib/86'),
     D = require('./lib/165'),
@@ -117,7 +118,7 @@ window.onkeydown = function (e) {
         }
     }
 };
-createAnyLock(f.areas, researchPane, function (e) {
+createAnyLock(areas, researchPane, function (e) {
     return e.unlocked();
 });
 let tickLength = process.env.NODE_ENV === 'development' ? 30 : 300;
@@ -179,7 +180,7 @@ let state = {
     schedule,
     activities,
     timeConfig,
-    fields: f.fields,
+    fields,
     research,
     work,
     eat,
@@ -223,7 +224,7 @@ let state = {
     marketItems,
     kongItems,
     userInventory,
-    areas: f.areas,
+    areas,
     loggedIn: false,
     loginStarted: false,
     pressedKeys,

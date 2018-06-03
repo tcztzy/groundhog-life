@@ -14,67 +14,65 @@ import { foodQualityStat } from "@/lib/food";
 import { energyStat } from "@/lib/stats/energy-stat";
 import { PaneGroup, Pane } from "@/lib/pane";
 import { lambdaPane, jobPane, researchPane, achievementPane } from "@/lib/panes";
-import { loopTrapResearch, laserGun } from "@/lib/fields/physics";
+import { loopTrapResearch, laserGun } from "@/lib/research/physics";
 import { achievements } from "@/lib/achievements";
 import { darkMatterTicks } from "@/lib/global-states";
 import { homeToHappinessFun } from "@/lib/homes";
 import { currentHomeContainer } from "@/lib/containers/home-container";
 import { money } from "@/lib/currency";
 import { jobs, careers } from "@/lib/careers";
+import { ExpMovAvg, fiveYearAlpha } from "@/lib/average";
+import { fields, areas } from "@/lib/research";
 
-var d = require('./183'),
-    x = require('./89');
-
-function D() {
-    const module = new MultModifier('dmtMod', 'Dark Matter Rituals', 10, 2);
-    createCustomLock([darkMatterTicks], module, function () {
+function addDarkMatterTicksModifier() {
+    const dmtMod = new MultModifier('dmtMod', 'Dark Matter Rituals', 10, 2);
+    createCustomLock([darkMatterTicks], dmtMod, function () {
         return darkMatterTicks.getValue() > 0;
     });
-    energyStat.addModifier(module);
+    energyStat.addModifier(dmtMod);
 }
 
 function j() {
-    const module = new LevelAddModifier('lt_research', 'Research', 10, loopTrapResearch.xp, 0.01, function (module) {
-        return 0.05 - 0.05 / (1 + Math.log10(module + 1));
-    });
-    loopTrap.efficiency.addModifier(module);
-    var exports = new GenericAddModifier('lt_alientech', 'Alien Tech', 11, battle, function (module) {
+    const loopTrapResearchModifier = new LevelAddModifier('lt_research', 'Research', 10, loopTrapResearch.xp, 0.01, x => 0.05 - 0.05 / (1 + Math.log10(x + 1)));
+    loopTrap.efficiency.addModifier(loopTrapResearchModifier);
+    const loopTrapAlienTechModifier = new GenericAddModifier('lt_alientech', 'Alien Tech', 11, battle, function (module) {
         return 0.05 - 0.05 / (1 + Math.log10(1 + module.state.enemiesDestroyed));
     });
-    loopTrap.efficiency.addModifier(exports);
+    loopTrap.efficiency.addModifier(loopTrapAlienTechModifier);
     createLevelLock(laserGun, lambdaPane, 1);
 }
 
 function N() {
-    var module = new PaneGroup(true);
+    const careersPaneGroup = new PaneGroup(true);
     for (let career of careers) {
-        let u = new Pane(career.id + '-pane', career.name, 'job-selector', module);
-        u.state.selected = true;
-        u.career = career;
-        createUnlockedLock(career, u);
+        let careerPane = new Pane(career.id + '-pane', career.name, 'job-selector', careersPaneGroup);
+        careerPane.state.selected = true;
+        careerPane.career = career;
+        createUnlockedLock(career, careerPane);
     }
 
-    jobPane.subpanes = module.panes;
-    var l = new PaneGroup(true);
-    for (let field of x.fields) {
-        let pane = new Pane(`${field.id}-pane`, field.name, 'area-selector', l);
-        pane.field = field;
-        pane.state.selected = true;
-        createUnlockedLock(field, pane);
+    jobPane.subpanes = careersPaneGroup.panes;
+    const fieldsPaneGroup = new PaneGroup(true);
+    for (let field of fields) {
+        let fieldPane = new Pane(`${field.id}-pane`, field.name, 'area-selector', fieldsPaneGroup);
+        fieldPane.field = field;
+        fieldPane.state.selected = true;
+        createUnlockedLock(field, fieldPane);
     }
-    researchPane.subpanes = l.panes;
-    var g = new PaneGroup(true);
+    researchPane.subpanes = fieldsPaneGroup.panes;
+
+    const achievementGroupPaneGroup = new PaneGroup(true);
     for (let ag of achievements) {
-        let pane = new Pane(`${ag.id}-pane`, ag.name, 'ag-display', g);
-        pane.ag = ag;
-        pane.state.selected = false;
+        let achievementGroupPane = new Pane(`${ag.id}-pane`, ag.name, 'ag-display', achievementGroupPaneGroup);
+        achievementGroupPane.ag = ag;
+        achievementGroupPane.state.selected = false;
     }
-    achievementPane.subpanes = g.panes;
+    achievementPane.subpanes = achievementGroupPaneGroup.panes;
 }
 
-function O() {
+function addResearchAndWorkHoursModifier() {
     let research_hours_mod = new StatEffectiveMultModifier('research_hours_mod', 'Hours', 10, research.duration, x => x / 60);
-    for (let area of x.areas) {
+    for (let area of areas) {
         area.xp.xpPerDayStat.addModifier(research_hours_mod);
     }
     let work_hours_mod = new StatEffectiveMultModifier('work_hours_mod', 'Hours', 10, work.duration, x => x / 60);
@@ -91,18 +89,22 @@ function B() {
     investmentReturnStat.subscribe(module);
 }
 
-function R() {
-    function e(exports) {
-        return shadyDoctor.getValue() && (exports = Math.max(0, exports - 10)), exports < 22 ? 1.2 - 0.005 * exports : exports < 40 ? e(21) - 0.01 * (exports - 21) : Math.max(0.01, e(39) - 0.02 * (exports - 39));
+function addHealthModifiers() {
+    function e(value) {
+        if (shadyDoctor.getValue())
+            value = Math.max(0, value - 10);
+        return value < 22 ? 1.2 - 0.005 * value : value < 40 ? e(21) - 0.01 * (value - 21) : Math.max(0.01, e(39) - 0.02 * (value - 39));
     }
-    var exports = new GenericMultModifier('health_age', 'Age', 12, currentYear, function (exports) {
-        return e(exports.getValue());
-    });
-    healthStat.addModifier(exports), exports.explain = function () {
+    const healthAgeModifier = new GenericMultModifier('health_age', 'Age', 12, currentYear, exports => e(exports.getValue()));
+    healthStat.addModifier(healthAgeModifier);
+    healthAgeModifier.explain = function () {
         var module = currentYear.getValue(), exports = shadyDoctor.getValue();
-        return exports && (module = Math.max(0, module - 10)), module < 22 ? exports ? 'Age is no concern yet - my doc has some great stuff.' : 'Age is no concern yet.' : module < 40 ? exports ? 'A few signs of aging, but the pills keep it at bay' : 'A few signs of aging.' : module < 57 ? exports ? 'More signs of aging, despite the pills.' : 'More signs of aging.' : exports ? 'Old age. The pills could not stop it.' : 'Old age.';
-    }, shadyDoctor.subscribe(healthStat);
-    var require = new d.ExpMovAvg('avg_sleep', 'Average Sleep', sleep.duration, d.fiveYearAlpha, 480, 6),
+        exports && (module = Math.max(0, module - 10));
+        return module < 22 ? exports ?
+            'Age is no concern yet - my doc has some great stuff.' : 'Age is no concern yet.' : module < 40 ? exports ? 'A few signs of aging, but the pills keep it at bay' : 'A few signs of aging.' : module < 57 ? exports ? 'More signs of aging, despite the pills.' : 'More signs of aging.' : exports ? 'Old age. The pills could not stop it.' : 'Old age.';
+    };
+    shadyDoctor.subscribe(healthStat);
+    var require = new ExpMovAvg('avg_sleep', 'Average Sleep', sleep.duration, fiveYearAlpha, 480, 6),
         n = function (module) {
             var exports = module / 60;
             return exports >= 8 ? 0.5 : exports >= 5 ? (exports - 5) / 6 : 0;
@@ -112,13 +114,23 @@ function R() {
         });
     healthStat.addModifier(r);
     r.explain = function () {
-        var module = require.state.value / 60,
-            exports = module.toFixed(1) + ' hours of sleep/night over the last ~5 years. ';
-        return exports += module >= 8 ? 'Great!' : module >= 6.5 ? 'Good!' : 'Need more!';
+        const hours = require.state.value / 60,
+            overview = hours.toFixed(1) + ' hours of sleep/night over the last ~5 years. ';
+        return `${overview}${hours >= 8 ? 'Great!' : hours >= 6.5 ? 'Good!' : 'Need more!'}`;
     };
-    var i = new StatEffectiveAddModifier('foodQualityMod', 'Food Quality', 3, foodQualityStat);
-    healthStat.addModifier(i), i.explain = function () {
-        return foodQualityStat.effective < 0.7 ? 'Not exactly great food.' : foodQualityStat.effective < 1.6 ? 'Proper food!' : foodQualityStat.effective < 2.5 ? 'Pretty, pretty good food!' : foodQualityStat.effective < 3.5 ? 'Great Food!' : 'Not sure what I\'m eating, but it\'s pretty amazing.';
+    const i = new StatEffectiveAddModifier('foodQualityMod', 'Food Quality', 3, foodQualityStat);
+    healthStat.addModifier(i);
+    i.explain = function () {
+        if (foodQualityStat.effective < 0.7)
+            return 'Not exactly great food.';
+        else if (foodQualityStat.effective < 1.6)
+            return 'Proper food!';
+        else if (foodQualityStat.effective < 2.5)
+            return 'Pretty, pretty good food!';
+        else if (foodQualityStat.effective < 3.5)
+            return 'Great Food!';
+        else
+            return "Not sure what I'm eating, but it's pretty amazing.";
     };
 }
 
@@ -187,10 +199,10 @@ function V() {
 export function setupGame() {
     B();
     V();
-    R();
+    addHealthModifiers();
     N();
-    O();
+    addResearchAndWorkHoursModifier();
     j();
-    D();
+    addDarkMatterTicksModifier();
     currentJobContainer.defaultJob = careers[0].jobs[0];
 }

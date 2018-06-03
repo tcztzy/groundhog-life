@@ -7,7 +7,7 @@ import { baseWorkXpPerHourStat, baseResearchXpPerHourStat } from "@/lib/stats/xp
 import { freeTime, research, work } from "@/lib/activities";
 import { AddModifier, MultModifier } from "@/lib/modifiers/modifier";
 import { dailyExpensesStat } from "@/lib/stats/currency-stat";
-import { compsci } from "@/lib/fields/computer-science";
+import { compsci } from "@/lib/research/computer-science";
 
 class S extends BooleanStateEntity {
     constructor(id, name, description, cost, selectAllowed=()=>true, deselectAllowed=()=>true) {

@@ -1,7 +1,7 @@
 import { createCompletedOrReadingListLock, createLevelLock } from "../../locks";
-import { Area } from "../../area";
+import { Area } from "../area";
 import { darkPlateau } from "../../careers/dark-plateau";
-import { Book } from "../../book";
+import { Book } from "../book";
 
 export let qm0 = new Book('qm0', "In Search of Schrödinger's Cat', 'Looks interesting.", 150, '0553342533');
 export let qm1 = new Book('qm1', 'Quantum Physics of ...', 'Maybe this quantum stuff can help you figure things out.', 300, '047187373X');
