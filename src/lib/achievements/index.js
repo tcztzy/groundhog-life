@@ -1,5 +1,4 @@
-var m = require('@/lib/113');
-import { Achievement, AG } from "@/lib/achievement";
+import { Achievement, AG } from "./achievement";
 import { currentLife, currentLoop, currentLifeThisLoop } from "@/lib/life-loop";
 import { yugle, yugleCeo } from "@/lib/careers/yugle";
 import { burgerFlipper, bunMastersCeo } from "@/lib/careers/bun-masters";
@@ -14,6 +13,7 @@ import { programming } from "@/lib/programming";
 import { alg } from "@/lib/algorithm";
 import { se } from "@/lib/software-engineering";
 import { investment } from "@/lib/investment";
+import { keep } from "@/lib/events/lost-wallet";
 
 export let achievements = [];
 
@@ -56,9 +56,9 @@ achievements.push(ag_circle_of_life);
 
 
 let L = new Achievement('ach_envy', 'Envy', 'Keep Mrs Pennywise\' wallet', function () {
-    return m.keep.state.countSelected;
+    return keep.state.countSelected;
 }, 1);
-m.keep.subscribe(L);
+keep.subscribe(L);
 let S = new Achievement('ach_gluttony', 'Gluttony', 'Hire Molecular Cooking Crew for a year', function () {
     return molecularCooking.state.daysActive;
 }, 365);

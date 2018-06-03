@@ -62,24 +62,24 @@ export class Locks {
     }
 }
 
-export function createUnlockedLock(lock, locks) {
-    function unlocked() {
-        return lock.unlocked();
+export function createUnlockedLock(keyholder, locked) {
+    function _check() {
+        return keyholder.unlocked();
     }
-    locks.locks.addLock(new Lock(lock.name + ' is unlocked', unlocked, [lock]));
-    lock.subscribe(locks);
+    locked.locks.addLock(new Lock(keyholder.name + ' is unlocked', _check, [keyholder]));
+    keyholder.subscribe(locked);
 }
 
-export function createCustomLock(keyholders, locks, check) {
-    let name = 'Custom Lock: ' + locks.id;
+export function createCustomLock(keyholders, locked, check) {
+    let name = 'Custom Lock: ' + locked.id;
     for (let keyholder of keyholders) {
-        keyholder.subscribe(locks);
+        keyholder.subscribe(locked);
         name += ' ' + keyholder.id;
     }
-    locks.locks.addLock(new Lock(name, check, keyholders));
+    locked.locks.addLock(new Lock(name, check, keyholders));
 }
 
-export function createAnyLock(keyholders, locks, check) {
+export function createAnyLock(keyholders, locked, check) {
     function _check() {
         let checked = false;
         for (let keyholder of keyholders) {
@@ -89,66 +89,66 @@ export function createAnyLock(keyholders, locks, check) {
     }
     let name = 'Any Completed:';
     for (let keyholder of keyholders) {
-        keyholder.subscribe(locks);
+        keyholder.subscribe(locked);
         name += ' ' + keyholder.name;
     }
-    locks.locks.addLock(new Lock(name, _check, keyholders));
+    locked.locks.addLock(new Lock(name, _check, keyholders));
 }
 
-export function createPredicateLock(lock, locks, _check) {
-    locks.locks.addLock(new Lock(lock.name + ' predicate', _check, [lock]));
-    lock.subscribe(locks);
+export function createPredicateLock(keyholder, locked, check) {
+    locked.locks.addLock(new Lock(keyholder.name + ' predicate', check, [keyholder]));
+    keyholder.subscribe(locked);
 }
 
-export function createMinimumValueLock(lock, locks, minimum) {
+export function createMinimumValueLock(keyholder, locked, minimum) {
     function _check() {
-        return lock.getValue() >= minimum;
+        return keyholder.getValue() >= minimum;
     }
-    locks.locks.addLock(new Lock(lock.name + ' at least ' + minimum, _check, [lock]));
-    lock.subscribe(locks);
+    locked.locks.addLock(new Lock(keyholder.name + ' at least ' + minimum, _check, [keyholder]));
+    keyholder.subscribe(locked);
 }
 
-export function createTrueStateLock(lock, locks) {
+export function createTrueStateLock(keyholder, locked) {
     function _check() {
-        return lock.getValue();
+        return keyholder.getValue();
     }
-    locks.locks.addLock(new Lock(lock.name + ' is true', _check, [lock]));
-    lock.subscribe(locks);
+    locked.locks.addLock(new Lock(keyholder.name + ' is true', _check, [keyholder]));
+    keyholder.subscribe(locked);
 }
 
-export function createSelectedLock(module, exports) {
+export function createSelectedLock(keyholder, locked) {
     function _check() {
-        return module.state.selected;
+        return keyholder.state.selected;
     }
-    exports.locks.addLock(new Lock(module.name + ' selected', _check, [module]));
-    module.subscribe(exports);
+    locked.locks.addLock(new Lock(keyholder.name + ' selected', _check, [keyholder]));
+    keyholder.subscribe(locked);
 }
 
-export function createLevelLock(skill, locks, level) {
+export function createLevelLock(keyholder, locked, level) {
     function _check() {
-        return skill.xp.state.level >= level;
+        return keyholder.xp.state.level >= level;
     }
-    locks.locks.addLock(new Lock(skill.name + ' Level ' + level, _check, [skill]));
-    skill.xp.subscribe(locks);
+    locked.locks.addLock(new Lock(keyholder.name + ' Level ' + level, _check, [keyholder]));
+    keyholder.xp.subscribe(locked);
 }
 
-export function createLevelLockChain(module, exports) {
-    for (let i = 1; i < module.length; i++)
-        createLevelLock(module[i - 1], module[i], exports);
+export function createLevelLockChain(keyholders, level) {
+    for (let i = 1; i < keyholders.length; i++)
+        createLevelLock(keyholders[i - 1], keyholders[i], level);
 }
 
-export function createCompletedLock(module, exports) {
+export function createCompletedLock(keyholder, locked) {
     function _check() {
-        return module.state.completed;
+        return keyholder.state.completed;
     }
-    exports.locks.addLock(new Lock(module.name, _check, [module]));
-    module.subscribe(exports);
+    locked.locks.addLock(new Lock(keyholder.name, _check, [keyholder]));
+    keyholder.subscribe(locked);
 }
 
-export function createCompletedOrReadingListLock(module, exports) {
+export function createCompletedOrReadingListLock(keyholder, locked) {
     function _check() {
-        return module.state.completed || module.state.onReadingList;
+        return keyholder.state.completed || keyholder.state.onReadingList;
     }
-    exports.locks.addLock(new Lock(module.name, _check, [module]));
-    module.subscribe(exports);
+    locked.locks.addLock(new Lock(keyholder.name, _check, [keyholder]));
+    keyholder.subscribe(locked);
 }

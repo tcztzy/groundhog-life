@@ -112,6 +112,7 @@
         "109": "./node_modules/core-js/library/modules/core.get-iterator-method",
         "110": "process-nextick-args",
         "111": "vue",
+        "113": "./lib/events/lost-wallet",
         "114": "./lib/ground-hogging",
         "115": "./lib/assistants",
         "116": "./lib/settings",

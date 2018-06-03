@@ -1,22 +1,22 @@
-import { BasicEntity } from './basic-entity';
-import { currentDay } from "./game-time";
-import { eventPane } from './panes';
-import { createUnlockedLock, createSelectedLock, createCustomLock } from './locks';
-import { logCustomEvent } from "./market/kongregate";
+import { BasicEntity } from '@/lib/basic-entity';
+import { currentDay } from "@/lib/game-time";
+import { eventPane } from '@/lib/panes';
+import { createUnlockedLock, createSelectedLock, createCustomLock } from '@/lib/locks';
+import { logCustomEvent } from "@/lib/market/kongregate";
 
-class w {
+class NodeState {
     executed = false;
     executedOnDay = null;
     timesExecuted = 0;
 }
 
-class P {
+class PathState {
     selected = false;
     enabled = true;
     countSelected = 0;
 }
 
-class x extends BasicEntity {
+class Path extends BasicEntity {
 
     prestige() {
         this.state.selected = false;
@@ -28,13 +28,13 @@ class x extends BasicEntity {
     }
 }
 
-export function createPath(module, exports, require) {
-    let n = new x(module, exports, new P());
-    createSelectedLock(n, require);
-    return n;
+export function createPath(id, name, require) {
+    let path = new Path(id, name, new PathState());
+    createSelectedLock(path, require);
+    return path;
 }
 
-class C  extends BasicEntity {
+class Node  extends BasicEntity {
     prestige() {
         this.state.executed = false;
         this.state.executedOnDay = null;
@@ -60,17 +60,17 @@ class C  extends BasicEntity {
     }
 }
 
-export function createNode(module, exports, require, action=x=>x) {
-    let r = new C(module, exports, new w());
-    if (require)
-        createUnlockedLock(r, require);
-    r.action = action;
-    return r;
+export function createNode(id, name, proceeding, action=x=>x) {
+    let node = new Node(id, name, new NodeState());
+    if (proceeding)
+        createUnlockedLock(node, proceeding);
+    node.action = action;
+    return node;
 }
 
-class L extends C {
-    constructor(module, require, choiceFun, choices) {
-        super(module, require, new w());
+class AutoChoiceNode extends Node {
+    constructor(id, name, choiceFun, choices) {
+        super(id, name, new NodeState());
         this.choiceFun = choiceFun;
         this.choices = choices;
         this.state.choiceMade = -1;
@@ -94,20 +94,20 @@ class L extends C {
     }
 }
 
-export function createAutoChoiceNode(module, exports, require, n, action=x=>x) {
-    let i = new L(module, exports, require, n);
-    i.action = action;
-    function s(module) {
-        createCustomLock([i], n[module], () => i.state.choiceMade === module);
+export function createAutoChoiceNode(id, name, choiceFun, choices, action=x=>x) {
+    let autoChoiceNode = new AutoChoiceNode(id, name, choiceFun, choices);
+    autoChoiceNode.action = action;
+    function s(i) {
+        createCustomLock([i], choices[i], () => i.state.choiceMade === i);
     }
-    for (let o = 0; o < n.length; o++)
+    for (let o = 0; o < choices.length; o++)
         s(o);
-    return i;
+    return autoChoiceNode;
 }
 
-class S extends C {
-    constructor(module, require, paths) {
-        super(module, require, new w());
+class UserChoiceNode extends Node {
+    constructor(id, name, paths) {
+        super(id, name, new NodeState());
         this.paths = paths;
     }
 
@@ -124,30 +124,30 @@ class S extends C {
     }
 }
 
-export function createUserChoiceNode(module, exports, require, action=x=>x) {
-    let r = new S(module, exports, require);
-    r.action = action;
-    return r;
+export function createUserChoiceNode(id, name, paths, action=x=>x) {
+    let userChoiceNode = new UserChoiceNode(id, name, paths);
+    userChoiceNode.action = action;
+    return userChoiceNode;
 }
 
 
-class A {
+class EventState {
     completed = false;
     expanded = true;
 }
 
 class Event extends BasicEntity {
     constructor(id, name, nodes) {
-        super(id, name, new A());
+        super(id, name, new EventState());
         this.nodes = nodes;
     }
 }
 
-export function createEvent(module, exports, require) {
-    let event = new Event(module, exports, require);
-    for (let c of require) {
-        c.event = event;
+export function createEvent(id, name, nodes) {
+    let event = new Event(id, name, nodes);
+    for (let node of nodes) {
+        node.event = event;
     }
-    createUnlockedLock(event, require[0]);
+    createUnlockedLock(event, nodes[0]);
     return event;
 }

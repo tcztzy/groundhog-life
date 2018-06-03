@@ -1,16 +1,16 @@
-import { prestiger } from './prestiger';
-import { saver } from './saver';
-import { createCustomLock }  from './locks';
-import { currentYear } from './game-time';
-import { currentLife } from './life-loop';
-import { selectPane, journalPane, lifeSummaryPane } from './panes';
-import { paused } from './global-states';
-import { addTachyons } from './market/kongregate';
-import { messageBox } from "./message-box";
-import { createNode, createPath, createUserChoiceNode, createAutoChoiceNode } from './event';
-import { battle } from "./battle";
-import { pauseOnPrestige } from './settings';
-import { achievements } from "./achievements";
+import { prestiger } from '@/lib/prestiger';
+import { saver } from '@/lib/saver';
+import { createCustomLock }  from '@/lib/locks';
+import { currentYear } from '@/lib/game-time';
+import { currentLife } from '@/lib/life-loop';
+import { selectPane, journalPane, lifeSummaryPane } from '@/lib/panes';
+import { paused } from '@/lib/global-states';
+import { addTachyons } from '@/lib/market/kongregate';
+import { messageBox } from "@/lib/message-box";
+import { createNode, createPath, createUserChoiceNode, createAutoChoiceNode } from '@/lib/events';
+import { battle } from "@/lib/battle";
+import { pauseOnPrestige } from '@/lib/settings';
+import { achievements } from "@/lib/achievements";
 
 function getV11() {
     let v11 = window.localStorage.getItem('v11');

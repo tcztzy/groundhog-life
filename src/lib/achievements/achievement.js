@@ -1,9 +1,9 @@
-import { BasicEntity } from "./basic-entity";
-import { isNumber } from "./assertions";
-import { currentDay } from "./game-time";
-import { currentLife } from "./life-loop";
-import { journalPane, achievementPane } from "./panes";
-import { saver } from "./saver";
+import { BasicEntity } from "@/lib/basic-entity";
+import { isNumber } from "@/lib/assertions";
+import { currentDay } from "@/lib/game-time";
+import { currentLife } from "@/lib/life-loop";
+import { journalPane, achievementPane } from "@/lib/panes";
+import { saver } from "@/lib/saver";
 
 class State {
     completed = false;
