@@ -1,4 +1,4 @@
-import { createNode, createEvent, createPath, createUserChoiceNode } from "@/lib/events";
+import { createNode, createEvent, createPath, createUserChoiceNode } from "@/lib/events/event";
 import { createPredicateLock, createMinimumValueLock } from "@/lib/locks";
 import { currentYear } from "@/lib/game-time";
 import { money } from "@/lib/currency";

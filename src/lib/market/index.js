@@ -5,7 +5,7 @@ import { addTachyons } from './kongregate';
 import { autoPromote, autoResearch, autoBoost } from './auto';
 import { minimalism, shadyDoctor } from 'extra';
 import { purchasedSomething } from "./purchased-something";
-import { prestigeAction } from '../ground-hogging';
+import { prestigeAction } from '../events/ground-hogging';
 
 function consumeItemCallback(error, result) {
     if (result === null)

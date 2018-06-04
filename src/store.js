@@ -61,7 +61,7 @@ import {
 import { achievements } from "@/lib/achievements";
 import { darkMatterTicks, lastSave, paused, turbo, bonusTicks } from "@/lib/global-states";
 import { playSounds, pauseOnPrestige, idleMode, nightMode, xpPerHour } from "@/lib/settings";
-import { userInventory, marketItems, kongItems } from "@/lib/market/market";
+import { userInventory, marketItems, kongItems } from "@/lib/market";
 import { battle } from "@/lib/battle";
 import { studyMirroredShip } from "@/lib/research/physics";
 import { homes, homeToHappinessFun } from "@/lib/homes";
@@ -70,14 +70,13 @@ import { money } from "@/lib/currency";
 import { schedule } from "@/lib/schedule";
 import { careers } from "@/lib/careers";
 import { fields, areas } from "@/lib/research";
-
-var v = require('./lib/177'),
-    I = require('./lib/169'),
-    E = require('./lib/86'),
-    D = require('./lib/165'),
-    O = require('./lib/112'),
-    z = require('./lib/172'),
-    J = require('./lib/173');
+import { changeActivityTime, setActiveResearch, setActiveJob, findActiveJob, selectHome } from "@/lib/user-select-action";
+import { researchQueue } from "@/lib/research/queue";
+import { events } from "@/lib/events";
+import { autoBoostFun, autoPromoteFun, autoplay } from "@/lib/auto-play";
+import { boosts } from "@/lib/boosts";
+import { delta } from "@/lib/delta";
+import { playerId } from "@/lib/player-id";
 
 Vue.use(Vuex);
 
@@ -98,7 +97,7 @@ window.onkeydown = function (e) {
         const n = keyBindings.state.tlp.indexOf(a);
         const r = keyBindings.state.slp.indexOf(a);
         if (a === keyBindings.state.boost) {
-            for (let boost of O.boosts) {
+            for (let boost of boosts) {
                 if (boost.currentState() === 'available')
                     boost.activate();
             }
@@ -173,7 +172,7 @@ let state = {
     autoPromoteJustPause,
     autoResearchJustPause,
     homes,
-    boosts: O.boosts,
+    boosts,
     time,
     stats,
     careers,
@@ -185,7 +184,7 @@ let state = {
     work,
     eat,
     eatXp: undefined,
-    events: I.events,
+    events,
     log,
     panes,
     foodOptions,
@@ -208,15 +207,15 @@ let state = {
     paused,
     turbo,
     bonusTicks,
-    delta: z.delta,
+    delta,
     settings,
     saver,
     currentJobContainer,
     currentResearchContainer,
-    researchQueue: v.researchQueue,
+    researchQueue,
     baseResearchXpPerHourStat,
     baseWorkXpPerHourStat,
-    playerId: J.playerId,
+    playerId,
     battle,
     loopTrap,
     prestiger,
@@ -307,9 +306,9 @@ let getters = {
 };
 let de = function (e) {
     e.time.currentTick += 1;
-    autoBoost.getValue() && D.autoBoostFun(e);
-    autoPromote.getValue() && D.autoPromoteFun(e);
-    autoResearch.getValue() && v.researchQueue.advance();
+    autoBoost.getValue() && autoBoostFun(e);
+    autoPromote.getValue() && autoPromoteFun(e);
+    autoResearch.getValue() && researchQueue.advance();
     for (let foodOption of foodOptions) {
         foodOption.dayCounter();
     }
@@ -368,7 +367,7 @@ let tick = function (e, t) {
     }
     while(t > 0) {
         if (q)
-            D.autoplay(e);
+            autoplay(e);
         t -= 1;
         e.time.sessionTicks += 1;
         de(e);
@@ -384,7 +383,7 @@ let mutations = {
         const t = new Date;
         e.time.lastTime = t.getTime();
         e.time.sessionStart = e.time.lastTime;
-        currentJobContainer.setCurrentJob(E.findActiveJob(e));
+        currentJobContainer.setCurrentJob(findActiveJob(e));
         saver.load();
         const lastSave = e.time.lastSave.getValue(), interval = t.getTime() - lastSave;
         if (lastSave > 0 && interval > 0) {
@@ -393,18 +392,18 @@ let mutations = {
             e.bonusTicks.add(Math.floor(i));
         }
         e.time.lastSave.setValue(t.getTime());
-        currentJobContainer.setCurrentJob( E.findActiveJob(e));
+        currentJobContainer.setCurrentJob(findActiveJob(e));
     },
     CHANGE_ACTIVITY_TIME: function (e, t) {
         const a = t[0], n = t[1];
-        E.changeActivityTime(e, a, n);
+        changeActivityTime(e, a, n);
     },
     SET_ACTIVE_JOB: function (e, t) {
-        E.setActiveJob(t);
+        setActiveJob(t);
     },
-    SET_ACTIVE_RESEARCH: (e, t) => E.setActiveResearch(t),
-    ADD_TO_READING_LIST: (e, t) => E.addToReadingList(t),
-    SELECT_HOME: (e, t) => E.selectHome(t),
+    SET_ACTIVE_RESEARCH: (e, t) => setActiveResearch(t),
+    // ADD_TO_READING_LIST: (e, t) => E.addToReadingList(t),
+    SELECT_HOME: (e, t) => selectHome(t),
     SELECT_FOOD_OPTION: (e, t) => selectFoodOption(t),
     SELECT_PANE: (e, t) => selectPane(t),
     ACTIVATE_BOOST: (e, t) => t.activate(),
@@ -427,7 +426,7 @@ let actions = {
     changeActivityTime: (e, t) => e.commit("CHANGE_ACTIVITY_TIME", t),
     setActiveJob: (e, t) => e.commit("SET_ACTIVE_JOB", t),
     setActiveResearch: (e, t) => e.commit("SET_ACTIVE_RESEARCH", t),
-    addToReadingList: (e, t) => e.commit("ADD_TO_READING_LIST", t),
+    // addToReadingList: (e, t) => e.commit("ADD_TO_READING_LIST", t),
     selectPane: (e, t) => e.commit("SELECT_PANE", t),
     selectHome: (e, t) => e.commit("SELECT_HOME", t),
     selectFoodOption: (e, t) => e.commit("SELECT_FOOD_OPTION", t),

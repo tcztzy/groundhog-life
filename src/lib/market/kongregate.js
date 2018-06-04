@@ -3,7 +3,7 @@ import PlayFab from 'playfab-sdk/Scripts/PlayFab/PlayFab';
 import PlayFabClient from 'playfab-sdk/Scripts/PlayFab/PlayFabClient';
 import { currentLife } from '../life-loop';
 import { saver } from '../saver';
-import { userInventory, tachyonCache, marketItems, kongItems } from './market';
+import { userInventory, tachyonCache, marketItems, kongItems } from './index';
 
 const InfoRequestParameters = {
     GetUserAccountInfo: true,

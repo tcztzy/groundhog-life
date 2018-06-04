@@ -7,7 +7,7 @@ import { selectPane, journalPane, lifeSummaryPane } from '@/lib/panes';
 import { paused } from '@/lib/global-states';
 import { addTachyons } from '@/lib/market/kongregate';
 import { messageBox } from "@/lib/message-box";
-import { createNode, createPath, createUserChoiceNode, createAutoChoiceNode } from '@/lib/events';
+import { createNode, createPath, createUserChoiceNode, createAutoChoiceNode, createEvent } from './event';
 import { battle } from "@/lib/battle";
 import { pauseOnPrestige } from '@/lib/settings';
 import { achievements } from "@/lib/achievements";

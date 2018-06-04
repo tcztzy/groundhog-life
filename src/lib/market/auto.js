@@ -1,5 +1,5 @@
 import { BooleanStateEntity, NumberStateEntity } from '../state-entities';
-import { userInventory } from './market';
+import { userInventory } from './index';
 
 export let autoPromote = new BooleanStateEntity('autoPromote', 'Auto Promote', false, false, function () {
     return userInventory.haveAutoPromote;
