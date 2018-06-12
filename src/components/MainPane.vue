@@ -10,6 +10,7 @@ import { mapGetters, mapActions } from 'vuex';
 import LambdaDisplay from './LambdaDisplay.vue';
 import JobDisplay from './JobDisplay.vue';
 import LabDisplay from './LabDisplay.vue';
+import EventsDisplay from './EventsDisplay.vue';
 import JournalDisplay from './JournalDisplay';
 import LifeSummary from './LifeSummary.vue';
 import HappinessExplain from './HappinessExplain.vue';
@@ -21,7 +22,7 @@ export default {
         LambdaDisplay,
         JobDisplay,
         LabDisplay,
-        EventsDisplay: f.default,
+        EventsDisplay,
         JournalDisplay,
         LifestyleDisplay: h.default,
         LifeSummary,
