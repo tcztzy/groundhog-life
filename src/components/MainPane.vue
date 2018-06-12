@@ -12,6 +12,7 @@ import JobDisplay from './JobDisplay.vue';
 import LabDisplay from './LabDisplay.vue';
 import EventsDisplay from './EventsDisplay.vue';
 import JournalDisplay from './JournalDisplay';
+import LifestyleDisplay from './LifestyleDisplay.vue';
 import LifeSummary from './LifeSummary.vue';
 import HappinessExplain from './HappinessExplain.vue';
 import GroundhogMarket from './GroundhogMarket.vue';
@@ -24,7 +25,7 @@ export default {
         LabDisplay,
         EventsDisplay,
         JournalDisplay,
-        LifestyleDisplay: h.default,
+        LifestyleDisplay,
         LifeSummary,
         HappinessExplain,
         GroundhogMarket,
