@@ -16,6 +16,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import MainPane from './components/MainPane.vue';
 import TimeWarning from './components/TimeWarning.vue';
 import PrestigeInfo from './components/PrestigeInfo.vue';
 import ProgressModal from './components/ProgressModal.vue';
@@ -34,7 +35,7 @@ export default {
         ProgressModal,
         SidebarDisplay,
         NavbarDisplay,
-        // MainPane,
+        MainPane,
         FooterDisplay,
         AusterityAlert,
         MessageBox,
