@@ -13,13 +13,13 @@ export class PaneGroup {
     }
 }
 export class Pane extends BasicEntity {
-    constructor(module, require, n, r, s=false, o=[]) {
+    constructor(module, require, component, paneGroup, footer=false, subpanes=[]) {
         super(module, require, new p());
         this.state.selected = this.id === 'job-pane';
-        this.component = n;
-        this.footer = s;
-        this.subpanes = o;
-        this.paneGroup = r;
+        this.component = component;
+        this.footer = footer;
+        this.subpanes = subpanes;
+        this.paneGroup = paneGroup;
         this.paneGroup.panes.push(this);
     }
 

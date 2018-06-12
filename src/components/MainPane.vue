@@ -16,6 +16,7 @@ import LifestyleDisplay from './LifestyleDisplay.vue';
 import LifeSummary from './LifeSummary.vue';
 import HappinessExplain from './HappinessExplain.vue';
 import GroundhogMarket from './GroundhogMarket.vue';
+import OtherDisplay from './OtherDisplay.vue';
 
 export default {
     name: 'main-pane',
@@ -29,7 +30,7 @@ export default {
         LifeSummary,
         HappinessExplain,
         GroundhogMarket,
-        OtherDisplay: P.default
+        OtherDisplay
     },
     computed: mapGetters(['panes']),
     methods: mapActions([])
