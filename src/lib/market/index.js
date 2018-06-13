@@ -1,11 +1,11 @@
-import { bonusTicks, darkMatterTicks } from '../global-states';
 import PlayFabClient from 'playfab-sdk/Scripts/PlayFab/PlayFabClient';
-import { NumberStateEntity } from '../state-entities';
+import { bonusTicks, darkMatterTicks } from '@/lib/global-states';
+import { NumberStateEntity } from '@/lib/state-entities';
+import { prestigeAction } from '@/lib/events/ground-hogging';
 import { addTachyons } from './kongregate';
 import { autoPromote, autoResearch, autoBoost } from './auto';
 import { minimalism, shadyDoctor } from './extra';
 import { purchasedSomething } from "./purchased-something";
-import { prestigeAction } from '../events/ground-hogging';
 
 function consumeItemCallback(error, result) {
     if (result === null)
