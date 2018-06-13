@@ -15,7 +15,7 @@
 <script>
 import { mapActions } from 'vuex';
 import StatDisplay from './StatDisplay.vue';
-import { abbreviateNumber } from '../lib/utils'
+import { abbreviateNumber } from '../lib/utils';
 export default {
     name: "currency-display",
     components: { StatDisplay },

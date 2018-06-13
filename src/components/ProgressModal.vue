@@ -17,6 +17,6 @@ export default {
     name: 'progress-modal',
     computed: mapGetters(['daysBehind']),
     methods: mapActions(['resetTimer'])
-}
+};
 </script>
 

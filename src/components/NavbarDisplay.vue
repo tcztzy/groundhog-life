@@ -18,7 +18,7 @@ export default {
     props: { panes: {} },
     computed: mapGetters([]),
     methods: mapActions(['selectPane']),
-}
+};
 </script>
 
 <style scoped>
